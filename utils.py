@@ -115,12 +115,12 @@ hlt_paths = {
         #'2016APV' : '( HLT_QuadJet45_TripleBTagCSV_p087)',
 #        '2016PostAPV' : '( HLT_QuadJet45_TripleBTagCSV_p087||  HLT_PFHT400_SixJet30_DoubleBTagCSV_p056||  HLT_PFHT450_SixJet40_BTagCSV_p056||  HLT_AK8PFJet360_TrimMass30||  HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20||  HLT_AK8PFJet450||  HLT_QuadPFJet_BTagCSV_p016_p11_VBF_Mqq200||  HLT_AK8PFHT600_TrimR0p1PT0p03Mass50_BTagCSV_p20||  HLT_AK8DiPFJet250_200_TrimMass30_BTagCSV_p20||  HLT_PFJet450||  HLT_QuadJet45_DoubleBTagCSV_p087 )',
              #'2017' : '(HLT_PFJet450 || HLT_PFJet500 || HLT_PFHT1050 || HLT_AK8PFJet550 || HLT_AK8PFJet360_TrimMass30 || HLT_AK8PFJet400_TrimMass30 || HLT_AK8PFHT750_TrimMass50 || HLT_AK8PFJet330_PFAK8BTagCSV_p17 || HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 || HLT_PFMET100_PFMHT100_IDTight_CaloBTagCSV_3p1 || HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2 || HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2 || HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5 || HLT_QuadPFJet98_83_71_15_DoubleBTagCSV_p013_p08_VBF1 || HLT_QuadPFJet98_83_71_15_BTagCSV_p013_VBF2 )',
-             #'2017' : '(HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 )',
+             '2017' : '(HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 )',
              #'2018' : '(HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5||HLT_PFHT1050||HLT_PFJet500||HLT_AK8PFJet500||HLT_AK8PFJet400_TrimMass30||HLT_AK8PFHT800_TrimMass50||HLT_AK8PFJet330_TrimMass30_PFAK8BoostedDoubleB_np4||HLT_QuadPFJet103_88_75_15_DoublePFBTagDeepCSV_1p3_7p7_VBF1||HLT_QuadPFJet103_88_75_15_PFBTagDeepCSV_1p3_VBF2||HLT_PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94||HLT_PFHT450_SixPFJet36_PFBTagDeepCSV_1p59||HLT_AK8PFJet330_TrimMass30_PFAK8BTagDeepCSV_p17||HLT_QuadPFJet98_83_71_15_DoublePFBTagDeepCSV_1p3_7p7_VBF1||HLT_QuadPFJet98_83_71_15_PFBTagDeepCSV_1p3_VBF2|| HLT_PFMET100_PFMHT100_IDTight_CaloBTagDeepCSV_3p1)',
              #'2018' : '(HLT_PFHT330PT30_QuadPFJet_75_60_45_40_TriplePFBTagDeepCSV_4p5)',
              '2016APV' : '('+'||'.join([t for t in AllHLTsWithSFs['2016APV']])+')',
              '2016' : '('+'||'.join([t for t in AllHLTsWithSFs['2016']])+')',
-             '2017' : '('+'||'.join([t for t in AllHLTsWithSFs['2017']])+')',
+             #'2017' : '('+'||'.join([t for t in AllHLTsWithSFs['2017']])+')',
              '2018' : '('+'||'.join([t for t in AllHLTsWithSFs['2018']])+')',
              '2022' : '('+'||'.join([t for t in AllHLTsWithSFs['2022']])+')',
              '2022EE' : '('+'||'.join([t for t in AllHLTsWithSFs['2022EE']])+')',
@@ -334,8 +334,34 @@ histograms_dict = {
 
 #doing this ordered dictionary to make sure of the drawing order
 # [color, marker size, line size, legend label , add in legend]
+# hist_properties = {'JetHT' : [ROOT.kBlack, 0.8, 0, 'Data', True] ,
+#                    'JetMET' : [ROOT.kBlack, 0.8, 0, 'Data', True],
+#                    'JetHT-btagSF' : [ROOT.kBlack, 0.8, 0, 'Data', True],
+#                    'BTagCSV' : [ROOT.kBlack, 0.8, 0, 'Data', True],
+#                    'data_obs' : [ROOT.kBlack, 0.8, 0, 'Data', True],
+#                    'ZZZ' : [ROOT.kGreen, 0, 0, 'VVV', True],
+#                    'WWW' : [ROOT.kGreen, 0, 0, 'VVV', False],
+#                    'WZZ' : [ROOT.kGreen, 0, 0, 'VVV', False],
+#                    'WWZ' : [ROOT.kGreen, 0, 0, 'VVV', False],
+#                    'TT' : [ROOT.kBlue, 0,0, 't#bar{t}', True],
+#                    'TTToHadronic' : [ROOT.kBlue, 0,0, 't#bar{t}', True],
+#                    'TTToSemiLeptonic' : [ROOT.kBlue, 0,0, 't#bar{t}', False],
+#                    'ZZTo4Q' : [ROOT.kGray, 0, 0, 'VV', True],
+#                    'WWTo4Q' : [ROOT.kGray, 0, 0, 'VV', False],
+#                    'ZJetsToQQ'   : [ROOT.kCyan, 0, 0, 'V+jets', True],
+#                    'WJetsToQQ'   : [ROOT.kCyan, 0, 0, 'V+jets', False],
+#                    'QCD'   : [ROOT.kOrange, 0, 0, 'QCD', True],
+#                    'QCD_bEnriched'   : [ROOT.kOrange + 1, 0, 0, 'QCD b-enriched', True],
+#                    'QCD6B'   : [ROOT.kOrange + 2, 0, 0, 'QCD6B', True],
+#                    'DYJetsToLL'   : [ROOT.kYellow + 2, 0, 0, 'DY + jets', True],
+#                    'GluGluToHHHTo6B_SM' : [ROOT.kRed, 0,3, 'SM HHH', True],
+#                    'GluGluToHHHTo4B2Tau_SM' : [ROOT.kRed, 0,3, 'SM HHH4b2tau', True],
+#                    'GluGluToHHH' : [ROOT.kRed, 0,3, 'SM HHH', True],
+#                    'GluGluToHHTo4B_cHHH1' : [ROOT.kViolet + 2, 0,3, 'SM HH', True],
+#                     'GluGluToHHTo2B2Tau' : [ROOT.kViolet + 3, 0,3, 'SM HH2b2tau', True],
+
+#         }
 hist_properties = {'JetHT' : [ROOT.kBlack, 0.8, 0, 'Data', True] ,
-                   'JetMET' : [ROOT.kBlack, 0.8, 0, 'Data', True],
                    'JetHT-btagSF' : [ROOT.kBlack, 0.8, 0, 'Data', True],
                    'BTagCSV' : [ROOT.kBlack, 0.8, 0, 'Data', True],
                    'data_obs' : [ROOT.kBlack, 0.8, 0, 'Data', True],
@@ -345,22 +371,27 @@ hist_properties = {'JetHT' : [ROOT.kBlack, 0.8, 0, 'Data', True] ,
                    'WWZ' : [ROOT.kGreen, 0, 0, 'VVV', False],
                    'TT' : [ROOT.kBlue, 0,0, 't#bar{t}', True],
                    'TTToHadronic' : [ROOT.kBlue, 0,0, 't#bar{t}', True],
+                   'TTTo2L2Nu' : [ROOT.kBlue, 0,0, 't#bar{t}', False],
                    'TTToSemiLeptonic' : [ROOT.kBlue, 0,0, 't#bar{t}', False],
-                   'ZZTo4Q' : [ROOT.kGray, 0, 0, 'VV', True],
-                   'WWTo4Q' : [ROOT.kGray, 0, 0, 'VV', False],
-                   'ZJetsToQQ'   : [ROOT.kCyan, 0, 0, 'V+jets', True],
-                   'WJetsToQQ'   : [ROOT.kCyan, 0, 0, 'V+jets', False],
-                   'QCD'   : [ROOT.kOrange, 0, 0, 'QCD', True],
+                   'WZTo' : [ROOT.kGray, 0, 0, 'VV', True],
+                   'ZZTo' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'WWTo' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'ZJetsTo'   : [ROOT.kCyan, 0, 0, 'V+jets', True],
+                   'WJets'   : [ROOT.kCyan, 0, 0, 'V+jets', False],
+                   'QCD_HT'   : [ROOT.kOrange, 0, 0, 'QCD', True],
                    'QCD_bEnriched'   : [ROOT.kOrange + 1, 0, 0, 'QCD b-enriched', True],
                    'QCD6B'   : [ROOT.kOrange + 2, 0, 0, 'QCD6B', True],
                    'DYJetsToLL'   : [ROOT.kYellow + 2, 0, 0, 'DY + jets', True],
-                   'GluGluToHHHTo6B_SM' : [ROOT.kRed, 0,3, 'SM HHH', True],
-                   'GluGluToHHHTo4B2Tau_SM' : [ROOT.kRed, 0,3, 'SM HHH4b2tau', True],
+                   'HHHTo6B' : [ROOT.kRed, 0,3, 'SM HHH', True],
+                   'HHHTo4B2Tau' : [ROOT.kRed, 0,3, 'SM HHH4b2tau', True],
                    'GluGluToHHH' : [ROOT.kRed, 0,3, 'SM HHH', True],
-                   'GluGluToHHTo4B_cHHH1' : [ROOT.kViolet + 2, 0,3, 'SM HH', True],
+                   'GluGluToHHTo4B' : [ROOT.kViolet + 2, 0,3, 'SM HH', True],
                     'GluGluToHHTo2B2Tau' : [ROOT.kViolet + 3, 0,3, 'SM HH2b2tau', True],
-
         }
+
+
+
+
 
 def addLabel_CMS_preliminary(luminosity) :
 
@@ -867,25 +898,27 @@ def init_get_max_prob():
 
 
 getmaxcat = '''
-int get_max_cat(float Prob3bh0h, float Prob2bh1h, float Prob1bh2h, float Prob0bh3h, float Prob2bh0h, float Prob1bh1h, float Prob0bh2h, float Prob1bh0h, float Prob0bh1h, float Prob0bh0h){
+int get_max_cat(float Prob0rh0bh0th, float Prob1rh0bh0th, float Prob2rh0bh0th, float Prob0rh1bh0th, float Prob1rh1bh0th, float Prob0rh2bh0th, float Prob0rh0bh1th, float Prob1rh0bh1th, float Prob2rh0bh1th, float Prob0rh1bh1th, float Prob1rh1bh1th, float Prob0rh2bh1th){
     std::vector<float> probs;
-    probs.push_back(Prob0bh0h);
-    probs.push_back(Prob3bh0h);
-    probs.push_back(Prob2bh1h);
-    probs.push_back(Prob1bh2h);
-    probs.push_back(Prob0bh3h);
-    probs.push_back(Prob2bh0h);
-    probs.push_back(Prob1bh1h);
-    probs.push_back(Prob0bh2h);
-    probs.push_back(Prob1bh0h);
-    probs.push_back(Prob0bh1h);
+    probs.push_back(Prob0rh0bh0th);
+    probs.push_back(Prob1rh0bh0th);
+    probs.push_back(Prob2rh0bh0th);
+    probs.push_back(Prob0rh1bh0th);
+    probs.push_back(Prob1rh1bh0th);
+    probs.push_back(Prob0rh2bh0th);
+    probs.push_back(Prob0rh0bh1th);
+    probs.push_back(Prob1rh0bh1th);
+    probs.push_back(Prob2rh0bh1th);
+    probs.push_back(Prob0rh1bh1th);
+    probs.push_back(Prob1rh1bh1th);
+    probs.push_back(Prob0rh2bh1th);
 
     auto it = std::max_element(probs.begin(), probs.end());
     int index = std::distance(probs.begin(), it);
 
     //std::cout << index << " " << probs[index] << std::endl;
 
-    return index;
+    return index+1;
 
 }
 
@@ -943,7 +976,7 @@ def matching_variables(df):
         h1match.append('int(%sHiggsMatchedIndex == 1 && %sFatJetMatched == 0)'%(j,j))
         h2match.append('int(%sHiggsMatchedIndex == 2 && %sFatJetMatched == 0)'%(j,j))
         h3match.append('int(%sHiggsMatchedIndex == 3 && %sFatJetMatched == 0)'%(j,j))
-    for t in ['tau1','tau2','tau3','tau4','lep1','lep2','lep3','lep4']:
+    for t in ['tau1','tau2','tau3','tau4']:#,'lep1','lep2','lep3','lep4']:
         higgsmatchedtau.append('int(%sHiggsMatched)'%t)
         h1matchtau.append('int(%sHiggsMatchedIndex == 1 && %sFatJetMatched == 0)'%(t,t))
         h2matchtau.append('int(%sHiggsMatchedIndex == 2 && %sFatJetMatched == 0)'%(t,t))

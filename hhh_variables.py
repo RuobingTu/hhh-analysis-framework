@@ -92,8 +92,8 @@ def add_hhh_variables_resolved(df):
         perm = unique[i]
         j1,j2 = perm
         variables = ['%sPt'%j1,'%sEta'%j1,'%sPhi'%j1,'%sMass'%j1,'%sbRegCorr'%j1,'%sPt'%j2,'%sEta'%j2,'%sPhi'%j2,'%sMass'%j2,'%sbRegCorr'%j2]
-        mass = 'mass%s%s'%(j1,j2)
-        pt = 'pt%s%s'%(j1,j2)
+        mass = 'bRegcorrmass%s%s'%(j1,j2)
+        pt = 'bRegcorrpt%s%s'%(j1,j2)
         eta = 'eta%s%s'%(j1,j2)
         phi = 'phi%s%s'%(j1,j2)
         dr = 'dr%s%s'%(j1,j2)
@@ -101,9 +101,9 @@ def add_hhh_variables_resolved(df):
         df = df.Define(mass, 'computemH(0,%s)'%','.join(variables))
         #df = df.Define(pt, 'computemH(1,%s)/h1_t3_pt'%','.join(variables))
         df = df.Define(pt, 'computemH(1,%s)'%','.join(variables))
-        df = df.Define(eta, 'computemH(2,%s)'%','.join(variables))
-        df = df.Define(phi, 'computemH(3,%s)'%','.join(variables))
-        df = df.Define(dr, 'computemH(4,%s)'%','.join(variables))
+        #df = df.Define(eta, 'computemH(2,%s)'%','.join(variables))
+        #df = df.Define(phi, 'computemH(3,%s)'%','.join(variables))
+        #df = df.Define(dr, 'computemH(4,%s)'%','.join(variables))
 
         masses.append(mass)
         pts.append(pt)

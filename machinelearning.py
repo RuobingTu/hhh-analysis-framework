@@ -17,9 +17,9 @@ bdts_xml = {
             }
 
 bdts_xml_boosted = {
-            '2016APV' : [path_bdt_xml+'TMVAClassification_2018_v25_regular_boosted.xml',path_bdt_xml+'TMVAClassification_2018_v25_inverted_boosted.xml'],
-            '2016' : [path_bdt_xml+'TMVAClassification_2018_v25_regular_boosted.xml',path_bdt_xml+'TMVAClassification_2018_v25_inverted_boosted.xml'],
-            '2017' : [path_bdt_xml+'TMVAClassification_2018_v25_regular_boosted.xml',path_bdt_xml+'TMVAClassification_2018_v25_inverted_boosted.xml'],
+            '2016APV' : [path_bdt_xml+'TMVAClassification_2018_v26_regular_boosted.xml',path_bdt_xml+'TMVAClassification_2018_v26_inverted_boosted.xml'],
+            '2016' : [path_bdt_xml+'TMVAClassification_2018_v26_regular_boosted.xml',path_bdt_xml+'TMVAClassification_2018_v26_inverted_boosted.xml'],
+            '2017' : [path_bdt_xml+'TMVAClassification_2018_v26_regular_boosted_cut.xml',path_bdt_xml+'TMVAClassification_2018_v26_inverted_boosted_cut.xml'],
             '2018' : [path_bdt_xml+'TMVAClassification_2018_v26_regular_boosted_cut.xml',path_bdt_xml+'TMVAClassification_2018_v26_inverted_boosted_cut.xml'],
             }
 

@@ -562,8 +562,10 @@ for i in range(len(output_values[0])):
     h3_index = best[2]
     h1 = jets_tmp[int(h1_index[0])] + jets_tmp[int(h1_index[1])]
     h1.HiggsMatchedIndex = jets_tmp[int(h1_index[0])].HiggsMatchedIndex ==  jets_tmp[int(h1_index[1])].HiggsMatchedIndex and jets_tmp[int(h1_index[1])].HiggsMatchedIndex > 0
+    h1.HiggsMatchedIndex_all = jets_tmp[int(h1_index[0])].HiggsMatchedIndex ==  jets_tmp[int(h1_index[1])].HiggsMatchedIndex
     h2 = jets_tmp[int(h2_index[0])] + jets_tmp[int(h2_index[1])]
     h2.HiggsMatchedIndex = jets_tmp[int(h2_index[0])].HiggsMatchedIndex ==  jets_tmp[int(h2_index[1])].HiggsMatchedIndex and jets_tmp[int(h2_index[1])].HiggsMatchedIndex > 0
+    h2.HiggsMatchedIndex_all = jets_tmp[int(h2_index[0])].HiggsMatchedIndex ==  jets_tmp[int(h2_index[1])].HiggsMatchedIndex
     print(h3_index)
     if not h3_index:
         h3 = dummy_particle_tmp[0]
@@ -740,13 +742,13 @@ df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h2_pt, "h2_spanet_boosted_pt")
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h2_eta, "h2_spanet_boosted_eta")
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h2_phi, "h2_spanet_boosted_phi")
 df = ROOT.AddBoolArray(ROOT.RDF.AsRNode(df), arr_h2_match, "h2_spanet_boosted_match")
-'''
+
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h3_mass, "h3_spanet_boosted_mass")
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h3_pt, "h3_spanet_boosted_pt")
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h3_eta, "h3_spanet_boosted_eta")
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_h3_phi, "h3_spanet_boosted_phi")
-df = ROOT.AddBoolArray(ROOT.RDF.AsRNode(df), arr_h3_match, "h3_spanet_boosted_match")
-'''
+#df = ROOT.AddBoolArray(ROOT.RDF.AsRNode(df), arr_h3_match, "h3_spanet_boosted_match")
+
 
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_prob_hhh, "ProbHHH")
 df = ROOT.AddArray(ROOT.RDF.AsRNode(df), arr_prob_qcd, "ProbQCD")

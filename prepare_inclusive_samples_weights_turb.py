@@ -33,7 +33,7 @@ year = args.year
 #path = "/eos/user/r/rtu/Turb325Output2017_ak8_option92_2017/mc/parts/"
 #path = "/eos/user/r/rtu/Turb507Outputdata2017_ak8_option92_2017/data/parts/"
 path = "/eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/mc/parts/"
-args.output = "/eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/mc/weights/"
+args.output = "/eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/mc/"
 print(path)
 
 output = os.path.join(args.output, '%s-parts-no-lhe'%version, 'mva-inputs-%s'%year)
@@ -130,7 +130,7 @@ for f_in in files:
     if 'JetHT' not in f_in and 'BTagCSV' not in f_in and 'SingleMuon' not in f_in:
         df = matching_variables(df)
 
-    #df = df.Define('ProbMultiH','ProbHHH + ProbHH4b + ProbHHH4b2tau + ProbHH2b2tau')
+    df = df.Define('ProbMultiH','ProbHHH + ProbHH4b + ProbHHH4b2tau + ProbHH2b2tau')
 
     dfs = {}
     for cut in cutlist:

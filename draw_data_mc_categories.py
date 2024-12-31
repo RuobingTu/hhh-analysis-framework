@@ -108,7 +108,7 @@ for var in variables:
     #file_signal = ROOT.TFile(input_folder + '/' + 'histograms_%s.root'%('GluGluToHHHTo6B_SM'))
 
     files_bkg = {}
-    for bkg in ['DYJetsToLL','GluGluToHHTo2B2Tau','ZZZ','WWW','WZZ','ZZTo4Q', 'WWTo4Q', 'WWTo4Q','ZJetsToQQ', 'WJetsToQQ', 'TTToHadronic','TTToSemiLeptonic','QCD','QCD_bEnriched']:
+    for bkg in ['DYJetsToLL','GluGluToHHTo2B2Tau','ZZZ','WWW','WZZ','ZZTo4Q', 'WWTo4Q','ZJetsToQQ', 'WJetsToQQ', 'TTToHadronic','TTToSemiLeptonic','QCD']:
         #f_tmp = ROOT.TFile(input_folder + '/' + 'histograms_%s.root'%bkg)
         f_tmp = "{}/{}.root".format(input_folder, bkg)
         if os.path.exists(f_tmp) :

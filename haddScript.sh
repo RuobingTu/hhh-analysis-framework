@@ -1,0 +1,19 @@
+cd /eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/v20-parts-no-lhe/mva-inputs-2017/inclusive-weights_SPANET
+hadd DYJetsToLL.root DYJetsToLL*
+hadd GluGluToHHTo2B2Tau.root GluGluToHHTo2B2Tau*
+hadd GluGluToHHTo4B.root GluGluToHHTo4B*
+hadd HHHTo4B2Tau.root HHHTo4B2Tau*
+hadd HHHTo6B.root HHHTo6B*
+hadd QCD.root QCD*
+hadd TTTo2L2Nu.root TTTo2L2Nu*
+hadd TTToHadronic.root TTToHadronic*
+hadd TTToSemiLeptonic.root TTToSemiLeptonic*
+hadd WJetsToLNu.root WJetsToLNu*
+hadd WJetsToQQ.root WJetsToQQ*
+hadd WWTo1L1Nu2Q.root WWTo1L1Nu2Q*
+hadd WWTo4Q.root WWTo4Q*
+hadd WZTo2Q2L.root WZTo2Q2L*
+hadd ZJetsToQQ.root ZJetsToQQ*
+hadd ZZTo2L2Nu.root ZZTo2L2Nu*
+hadd ZZTo2Q2L.root ZZTo2Q2L*
+hadd ZZTo4Q.root ZZTo4Q*

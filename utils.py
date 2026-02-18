@@ -133,17 +133,18 @@ eta_bins = 10
 histograms_dict = {
         'h1_t3_mass'  : { "nbins" : 13 , "xmin" : 70 , "xmax" : 200, "label" : 'm(H1) (GeV)'},
         'h2_t3_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H2) (GeV)'},
-        'h3_t3_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H3) (GeV)'},
+        #'h3_t3_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H3) (GeV)'},
+        'higgs3_mass_manu' : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H3) (GeV)'},
 
-        #'h1_spanet_boosted_mass'  : { "nbins" : 13 , "xmin" : 70 , "xmax" : 200, "label" : 'm(H1) (GeV)'},
-        #'h2_spanet_boosted_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H2) (GeV)'},
+        'h1_spanet_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H1) (GeV)'},
+        'h2_spanet_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H2) (GeV)'},
         #'h3_spanet_boosted_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H3) (GeV)'},
 
         #'h1_spanet_mass'  : { "nbins" : 13 , "xmin" : 70 , "xmax" : 200, "label" : 'm(H1) (GeV)'},
         #'h2_spanet_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H2) (GeV)'},
         #'h3_spanet_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H3) (GeV)'},
 
-        'h_fit_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H) fitted (GeV)'},
+        #'h_fit_mass'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 300, "label" : 'm(H) fitted (GeV)'},
 
         'h1_t3_pt'  : { "nbins" : 25 , "xmin" : 0 , "xmax" : 500, "label" : 'p_{T}(H1)'},
         'h2_t3_pt'  : { "nbins" : 25 , "xmin" : 0 , "xmax" : 500, "label" : 'p_{T}(H2)'},
@@ -185,9 +186,9 @@ histograms_dict = {
         'h2_t3_dRjets'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 5.0, "label" : '#Delta R(j3,j4) H2'},
         'h3_t3_dRjets'  : { "nbins" : 30 , "xmin" : 0 , "xmax" : 5.0, "label" : '#Delta R(j5,j6) H3'},
 
-        'h1_t3_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H1 truth matched'},
-        'h2_t3_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H2 truth matched'},
-        'h3_t3_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H3 truth matched'},
+        #'h1_spanet_boosted_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H1 truth matched'},
+        #'h2_spanet_boosted_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H2 truth matched'},
+        #'h3_t3_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H3 truth matched'},
 
         #'h1_spanet_boosted_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H1 truth matched'},
         #'h2_spanet_boosted_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H2 truth matched'},
@@ -197,26 +198,26 @@ histograms_dict = {
         #'h2_spanet_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H2 truth matched'},
         #'h3_spanet_match'  : { "nbins" : 2 , "xmin" : 0 , "xmax" : 2, "label" : 'H3 truth matched'},
 
-        'bcand1Pt'  : { "nbins" : 50 , "xmin" : 0 , "xmax" : 500, "label" : 'b-candidate 1 p_{T} (GeV)'},
-        'bcand2Pt'  : { "nbins" : 50 , "xmin" : 0 , "xmax" : 500, "label" : 'b-candidate 2 p_{T} (GeV)'},
-        'bcand3Pt'  : { "nbins" : 45 , "xmin" : 0 , "xmax" : 450, "label" : 'b-candidate 3 p_{T} (GeV)'},
-        'bcand4Pt'  : { "nbins" : 35 , "xmin" : 0 , "xmax" : 350, "label" : 'b-candidate 4 p_{T} (GeV)'},
-        'bcand5Pt'  : { "nbins" : 25 , "xmin" : 0 , "xmax" : 250, "label" : 'b-candidate 5 p_{T} (GeV)'},
-        'bcand6Pt'  : { "nbins" : 15 , "xmin" : 0 , "xmax" : 150, "label" : 'b-candidate 6 p_{T} (GeV)'},
-
-        'bcand1Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  1 #eta'},
-        'bcand2Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  2 #eta'},
-        'bcand3Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  3 #eta'},
-        'bcand4Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  4 #eta'},
-        'bcand5Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  5 #eta'},
-        'bcand6Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  6 #eta'},
-
-        'bcand1Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  1 #phi'},
-        'bcand2Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  2 #phi'},
-        'bcand3Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  3 #phi'},
-        'bcand4Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  4 #phi'},
-        'bcand5Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  5 #phi'},
-        'bcand6Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  5 #phi'},
+        #'bcand1Pt'  : { "nbins" : 50 , "xmin" : 0 , "xmax" : 500, "label" : 'b-candidate 1 p_{T} (GeV)'},
+        #'bcand2Pt'  : { "nbins" : 50 , "xmin" : 0 , "xmax" : 500, "label" : 'b-candidate 2 p_{T} (GeV)'},
+        #'bcand3Pt'  : { "nbins" : 45 , "xmin" : 0 , "xmax" : 450, "label" : 'b-candidate 3 p_{T} (GeV)'},
+        #'bcand4Pt'  : { "nbins" : 35 , "xmin" : 0 , "xmax" : 350, "label" : 'b-candidate 4 p_{T} (GeV)'},
+        #'bcand5Pt'  : { "nbins" : 25 , "xmin" : 0 , "xmax" : 250, "label" : 'b-candidate 5 p_{T} (GeV)'},
+        #'bcand6Pt'  : { "nbins" : 15 , "xmin" : 0 , "xmax" : 150, "label" : 'b-candidate 6 p_{T} (GeV)'},
+#
+        #'bcand1Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  1 #eta'},
+        #'bcand2Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  2 #eta'},
+        #'bcand3Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  3 #eta'},
+        #'bcand4Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  4 #eta'},
+        #'bcand5Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  5 #eta'},
+        #'bcand6Eta'  : { "nbins" : eta_bins , "xmin" : 0 , "xmax" : 2.5, "label" : 'b-candidate  6 #eta'},
+#
+        #'bcand1Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  1 #phi'},
+        #'bcand2Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  2 #phi'},
+        #'bcand3Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  3 #phi'},
+        #'bcand4Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  4 #phi'},
+        #'bcand5Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  5 #phi'},
+        #'bcand6Phi'  : { "nbins" : phi_bins , "xmin" : 0 , "xmax" : 3.2, "label" : 'b-candidate  5 #phi'},
 
         #'bcand1DeepFlavB'  : { "nbins" : 40 , "xmin" : 0 , "xmax" : 1, "label" : 'Jet 1 b-tag score'},
         #'bcand2DeepFlavB'  : { "nbins" : 40 , "xmin" : 0 , "xmax" : 1, "label" : 'Jet 2 b-tag score'},
@@ -260,42 +261,42 @@ histograms_dict = {
         'fatJet2PNetQCD'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'PNet QCD(fatJet2)'},
         'fatJet3PNetQCD'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'PNet QCD(fatJet3)'},
 
-        'HHH_mass'   : { "nbins" : 80 , "xmin" : 0 , "xmax" : 1600, "label" : 'm(HHH) (GeV)'},
-        'HHH_pt'     : { "nbins" : 80 , "xmin" : 0 , "xmax" : 800, "label" : 'p_{T}(HHH) (GeV)'},
-        'HHH_eta'    : { "nbins" : 15 , "xmin" : 0 , "xmax" : 2.5, "label" : '#eta(HHH) (GeV)'},
+        #'HHH_mass'   : { "nbins" : 80 , "xmin" : 0 , "xmax" : 1600, "label" : 'm(HHH) (GeV)'},
+        #'HHH_pt'     : { "nbins" : 80 , "xmin" : 0 , "xmax" : 800, "label" : 'p_{T}(HHH) (GeV)'},
+        #'HHH_eta'    : { "nbins" : 15 , "xmin" : 0 , "xmax" : 2.5, "label" : '#eta(HHH) (GeV)'},
 
         #'nfatjets'    : { "nbins" : 5 , "xmin" : 0 , "xmax" : 5, "label" : 'N fat-jets'},
         'nprobejets'  : { "nbins" : 5 , "xmin" : 0 , "xmax" : 5, "label" : 'N fat-jets'},
         'nbtags'      : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N b-tags'},
 
-        'nloosebtags'   : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N loose b-tags'},
-        'nmediumbtags'  : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N meidum b-tags'},
-        'ntightbtags'   : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N tight b-tags'},
+        #'nloosebtags'   : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N loose b-tags'},
+        #'nmediumbtags'  : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N meidum b-tags'},
+        #'ntightbtags'   : { "nbins" : 10 , "xmin" : 0 , "xmax" : 10, "label" : 'N tight b-tags'},
 
         'nsmalljets' : { "nbins" : 12 , "xmin" : 0 , "xmax" : 12, "label" : 'NAK4 jets'},
         'nfatjets' :  { "nbins" : 7 , "xmin" : 0 , "xmax" : 7, "label" : 'NAK8 jets'},
 
         'ht'   : { "nbins" : 90 , "xmin" : 0 , "xmax" : 1800, "label" : 'Event HT [GeV]'},
         'met'  : { "nbins" : 25 , "xmin" : 0 , "xmax" : 500, "label" : 'E_{T}^{miss} [GeV]'},
-        'bdt'  : { "nbins" : 20 , "xmin" : -1 , "xmax" : 1, "label" : 'BDT output score'},
+        #'bdt'  : { "nbins" : 20 , "xmin" : -1 , "xmax" : 1, "label" : 'BDT output score'},
         #'mva'  : { "nbins" : 10 , "xmin" : 0.0 , "xmax" : 1.0, "label" : 'BDT output score'},
         #'mvaBoosted'  : { "nbins" : 20 , "xmin" : -0.6 , "xmax" : 0.8, "label" : 'BDT output score (boosted)'},
-        'ProbHHH'  : { "nbins" : 40, "xmin" : 0 , "xmax" : 1.0, "label" : 'ProbHHH'},
+        'ProbHHH6b'  : { "nbins" : 40, "xmin" : 0 , "xmax" : 1.0, "label" : 'ProbHHH6b'},
         'ProbHH4b'  : { "nbins" : 40, "xmin" : 0 , "xmax" : 1.0, "label" : 'ProbHH4b'},
         'ProbHHH4b2tau'  : { "nbins" : 40, "xmin" : 0 , "xmax" : 1.0, "label" : 'ProbHHH4b2tau'},
-        'ProbMultiH'  : { "nbins" : 40, "xmin" : 0.2 , "xmax" : 1.0, "label" : 'Prob multi-Higgs'},
+        #'ProbMultiH'  : { "nbins" : 40, "xmin" : 0.2 , "xmax" : 1.0, "label" : 'Prob multi-Higgs'},
         'ProbVV'  : { "nbins" : 40, "xmin" : 0.2 , "xmax" : 1.0, "label" : 'ProbVV'},
 
-        'jet1DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 1 DeepJet b-score'},
-        'jet2DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 2 DeepJet b-score'},
-        'jet3DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 3 DeepJet b-score'},
-        'jet4DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 4 DeepJet b-score'},
-        'jet5DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 5 DeepJet b-score'},
-        'jet6DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 6 DeepJet b-score'},
-        'jet7DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 7 DeepJet b-score'},
-        'jet8DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 8 DeepJet b-score'},
-        'jet9DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 9 DeepJet b-score'},
-        'jet10DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 10 DeepJet b-score'},
+        #'jet1DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 1 DeepJet b-score'},
+        #'jet2DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 2 DeepJet b-score'},
+        #'jet3DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 3 DeepJet b-score'},
+        #'jet4DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 4 DeepJet b-score'},
+        #'jet5DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 5 DeepJet b-score'},
+        #'jet6DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 6 DeepJet b-score'},
+        #'jet7DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 7 DeepJet b-score'},
+        #'jet8DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 8 DeepJet b-score'},
+        #'jet9DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 9 DeepJet b-score'},
+        #'jet10DeepFlavB'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 1, "label" : 'jet 10 DeepJet b-score'},
 
         'jet1HadronFlavour'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 20, "label" : 'jet 1 hadron flavour'},
         'jet2HadronFlavour'  : { "nbins" : 20 , "xmin" : 0 , "xmax" : 20, "label" : 'jet 2 hadron flavour'},
@@ -374,11 +375,14 @@ hist_properties = {'JetHT' : [ROOT.kBlack, 0.8, 0, 'Data', True] ,
                    'TTTo2L2Nu' : [ROOT.kBlue, 0,0, 't#bar{t}', False],
                    'TTToSemiLeptonic' : [ROOT.kBlue, 0,0, 't#bar{t}', False],
                    'WZTo' : [ROOT.kGray, 0, 0, 'VV', True],
-                   'ZZTo' : [ROOT.kGray, 0, 0, 'VV', False],
-                   'WWTo' : [ROOT.kGray, 0, 0, 'VV', False],
-                   'ZJetsTo'   : [ROOT.kCyan, 0, 0, 'V+jets', True],
+                   'ZZTo2L2Nu' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'ZZTo2Q2L' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'WWTo4Q' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'WWTo1L1Nu2Q' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'WZTo2Q2L' : [ROOT.kGray, 0, 0, 'VV', False],
+                   'ZJetsToQQ'   : [ROOT.kCyan, 0, 0, 'V+jets', True],
                    'WJets'   : [ROOT.kCyan, 0, 0, 'V+jets', False],
-                   'QCD_HT'   : [ROOT.kOrange, 0, 0, 'QCD', True],
+                   'QCD'   : [ROOT.kOrange, 0, 0, 'QCD', True],
                    'QCD_bEnriched'   : [ROOT.kOrange + 1, 0, 0, 'QCD b-enriched', True],
                    'QCD6B'   : [ROOT.kOrange + 2, 0, 0, 'QCD6B', True],
                    'DYJetsToLL'   : [ROOT.kYellow + 2, 0, 0, 'DY + jets', True],
@@ -630,8 +634,8 @@ float getTriggerSF(int HLT_QuadJet45_TripleBTagCSV_p087, int HLT_PFHT400_SixJet3
 hlt_sf_2017 = """
 float getTriggerSF(int HLT_PFJet450, int HLT_PFJet500, int HLT_PFHT1050, int HLT_AK8PFJet550, int HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0, int HLT_AK8PFJet360_TrimMass30, int HLT_AK8PFHT750_TrimMass50, int HLT_AK8PFJet400_TrimMass30, int HLT_PFMET100_PFMHT100_IDTight_CaloBTagCSV_3p1, int HLT_PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2, int HLT_AK8PFJet330_PFAK8BTagCSV_p17, int HLT_QuadPFJet98_83_71_15_BTagCSV_p013_VBF2, int HLT_PFHT380_SixPFJet32_DoublePFBTagCSV_2p2, int HLT_PFHT430_SixPFJet40_PFBTagCSV_1p5, int HLT_QuadPFJet98_83_71_15_DoubleBTagCSV_p013_p08_VBF1 ){
     float triggerSF = 1;
-        //if (HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) {triggerSF = 36.67/41.48;}
-        if (HLT_PFJet500 || HLT_PFHT1050 || HLT_AK8PFJet550) {triggerSF = 1;}
+        if (HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0) {triggerSF = 36.67/41.48;}
+        else if (HLT_PFJet500 || HLT_PFHT1050 || HLT_AK8PFJet550) {triggerSF = 1;}
         else if (HLT_PFHT300PT30_QuadPFJet_75_60_45_40_TriplePFBTagCSV_3p0 || HLT_AK8PFJet400_TrimMass30 ) {triggerSF = 36.67/41.48;}
         else if (HLT_AK8PFHT750_TrimMass50) {triggerSF=30.90/41.48;}
         else if (HLT_AK8PFJet360_TrimMass30 || HLT_PFMET100_PFMHT100_IDTight_CaloBTagCSV_3p1) {triggerSF = 28.23/41.48;}
@@ -784,18 +788,18 @@ def init_mhhh():
 
 def addMHHH(df):
     df = df.Define('mHHH', 'computeMHHH(0,h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,h3_t3_mass,h3_t3_pt,h3_t3_eta,h3_t3_phi)') # for compatibility with boosted BDT
-    df = df.Define('HHH_mass', 'computeMHHH(0, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,h3_t3_mass,h3_t3_pt,h3_t3_eta,h3_t3_phi)')
-    df = df.Define('HHH_pt', 'computeMHHH(1, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,h3_t3_mass,h3_t3_pt,h3_t3_eta,h3_t3_phi)')
-    df = df.Define('HHH_eta', 'computeMHHH(2, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,h3_t3_mass,h3_t3_pt,h3_t3_eta,h3_t3_phi)')
-    df = df.Define('HHH4b2tau_mass', 'computeMHHH(0, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi,h3_4b2t_mass,h3_4b2t_pt,h3_4b2t_eta,h3_4b2t_phi)')
-    df = df.Define('HHH4b2tau_pt', 'computeMHHH(1, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi,h3_4b2t_mass,h3_4b2t_pt,h3_4b2t_eta,h3_4b2t_phi)')
-    df = df.Define('HHH4b2tau_eta', 'computeMHHH(2, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi,h3_4b2t_mass,h3_4b2t_pt,h3_4b2t_eta,h3_4b2t_phi)')
-    df = df.Define('HH_mass', 'computeMHH(0, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi)')
-    df = df.Define('HH_pt', 'computeMHH(1, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi)')
-    df = df.Define('HH_eta', 'computeMHH(2, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi)')
-    df = df.Define('HH4b2tau_mass', 'computeMHH(0, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi)')
-    df = df.Define('HH4b2tau_pt', 'computeMHH(1, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi)')
-    df = df.Define('HH4b2tau_eta', 'computeMHH(2, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi)')
+    df = df.Define('HHH_mass_gen', 'computeMHHH(0, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,higgs3_mass_manu,higgs3_pt_manu,higgs3_eta_manu,higgs3_phi_manu)')
+    df = df.Define('HHH_pt_gen', 'computeMHHH(1, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,higgs3_mass_manu,higgs3_pt_manu,higgs3_eta_manu,higgs3_phi_manu)')
+    df = df.Define('HHH_eta_gen', 'computeMHHH(2, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi,higgs3_mass_manu,higgs3_pt_manu,higgs3_eta_manu,higgs3_phi_manu)')
+    df = df.Define('HHH4b2tau_mass_reco', 'computeMHHH(0, h1_spanet_boosted_mass,h1_spanet_boosted_pt,h1_spanet_boosted_eta,h1_spanet_boosted_phi,h2_spanet_boosted_mass,h2_spanet_boosted_pt,h2_spanet_boosted_eta,h2_spanet_boosted_phi,higgs3_mass_manu,higgs3_pt_manu,higgs3_eta_manu,higgs3_phi_manu)')
+    df = df.Define('HHH4b2tau_pt_reco', 'computeMHHH(1, h1_spanet_boosted_mass,h1_spanet_boosted_pt,h1_spanet_boosted_eta,h1_spanet_boosted_phi,h2_spanet_boosted_mass,h2_spanet_boosted_pt,h2_spanet_boosted_eta,h2_spanet_boosted_phi,higgs3_mass_manu,higgs3_pt_manu,higgs3_eta_manu,higgs3_phi_manu)')
+    df = df.Define('HHH4b2tau_eta_reco', 'computeMHHH(2, h1_spanet_boosted_mass,h1_spanet_boosted_pt,h1_spanet_boosted_eta,h1_spanet_boosted_phi,h2_spanet_boosted_mass,h2_spanet_boosted_pt,h2_spanet_boosted_eta,h2_spanet_boosted_phi,higgs3_mass_manu,higgs3_pt_manu,higgs3_eta_manu,higgs3_phi_manu)')
+    df = df.Define('HH_mass_gen', 'computeMHH(0, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi)')
+    df = df.Define('HH_pt_gen', 'computeMHH(1, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi)')
+    df = df.Define('HH_eta_gen', 'computeMHH(2, h1_t3_mass,h1_t3_pt,h1_t3_eta,h1_t3_phi,h2_t3_mass,h2_t3_pt,h2_t3_eta,h2_t3_phi)')
+    #df = df.Define('HH4b2tau_mass', 'computeMHH(0, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi)')
+    #df = df.Define('HH4b2tau_pt', 'computeMHH(1, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi)')
+    #df = df.Define('HH4b2tau_eta', 'computeMHH(2, h1_4b2t_mass,h1_4b2t_pt,h1_4b2t_eta,h1_4b2t_phi,h2_4b2t_mass,h2_4b2t_pt,h2_4b2t_eta,h2_4b2t_phi)')
     return df
 
 def drawText(x, y, text, color = ROOT.kBlack, fontsize = 0.05, font = 42, doNDC = True, alignment = 12):
@@ -813,7 +817,8 @@ mva_variables = ['h_fit_mass','h1_t3_mass','h2_t3_mass','h3_t3_mass','h2_t3_dRje
 
 #save_variables = ['h_fit_mass','h1_t3_mass','h2_t3_mass','h3_t3_mass','h2_t3_dRjets','h3_t3_dRjets','jet1Pt','jet2Pt','jet3Pt','jet4Pt','jet5Pt','jet6Pt','jet1Eta','jet2Eta','jet3Eta','jet4Eta','jet5Eta','jet6Eta','jet1Phi','jet2Phi','jet3Phi','jet4Phi','jet5Phi','jet6Phi','jet1DeepFlavB','jet2DeepFlavB','jet3DeepFlavB','jet4DeepFlavB','jet5DeepFlavB','jet6DeepFlavB','fatJet1Mass','fatJet1Pt','fatJet1Eta','fatJet2Mass','fatJet1PNetXbb','fatJet2Pt','fatJet2Eta','fatJet2PNetXbb','fatJet3Mass','fatJet3Pt','fatJet3Eta','fatJet3PNetXbb','fatJet2PNetQCD','fatJet3PNetQCD','jet7Pt','jet7Eta','jet7Phi','jet7DeepFlavB','jet8Pt','jet8Eta','jet8Phi','jet8DeepFlavB','jet9Pt','jet9Eta','jet9Phi','jet9DeepFlavB','jet10Pt','jet10Eta','jet10Phi','jet10DeepFlavB','mHHH','nloosebtags','nmediumbtags','ntightbtags','ht','met','lep1Pt','lep1Eta','lep1Phi','lep2Pt','lep2Eta','lep2Phi','nsmalljets','nfatjets','event']
 
-save_variables = list(histograms_dict.keys()) + ['event','nsmalljets','nfatjets','bcand1Mass','bcand2Mass','bcand1bRegCorr','bcand2bRegCorr','bcand1DeepFlavB','bcand2DeepFlavB','ntaus','nleps','tau1Pt','tau1Eta','tau1Phi','tau1Mass', 'tau2Pt','tau2Eta','tau2Phi','tau2Mass','lep1Pt','lep1Eta','lep1Phi','lep2Pt','lep2Eta','lep2Phi']#,'ProbHHH','ProbQCD','ProbTT','ProbVV','ProbVJets','ProbHH4b','ProbHH2b2tau','ProbHHH4b2tau','ProbDY']
+#save_variables = list(histograms_dict.keys()) + ['event','nsmalljets','nfatjets','bcand1Mass','bcand2Mass','bcand1bRegCorr','bcand2bRegCorr','bcand1DeepFlavB','bcand2DeepFlavB','ntaus','nleps','tau1Pt','tau1Eta','tau1Phi','tau1Mass', 'tau2Pt','tau2Eta','tau2Phi','tau2Mass','lep1Pt','lep1Eta','lep1Phi','lep2Pt','lep2Eta','lep2Phi']#,'ProbHHH','ProbQCD','ProbTT','ProbVV','ProbVJets','ProbHH4b','ProbHH2b2tau','ProbHHH4b2tau','ProbDY']
+save_variables = list(histograms_dict.keys()) + ['event','nsmalljets','nfatjets', 'ntaus','nleps','tau1Pt','tau1Eta','tau1Phi','tau1Mass', 'tau2Pt','tau2Eta','tau2Phi','tau2Mass','lep1Pt','lep1Eta','lep1Phi','lep2Pt','lep2Eta','lep2Phi']#,'ProbHHH','ProbQCD','ProbTT','ProbVV','ProbVJets','ProbHH4b','ProbHH2b2tau','ProbHHH4b2tau','ProbDY']
 
 from calibrations import btag_init, addBTagSF, addBTagEffSF
 
@@ -870,17 +875,19 @@ def initialise_df(df,year,proc):
 
 
 getmax = '''
-int get_max_prob(float ProbHHH, float ProbQCD, float ProbTT, float ProbVJets, float ProbVV, float ProbHHH4b2tau, float ProbHH4b, float ProbHH2b2tau){
+int get_max_prob(float ProbHHH6b, float ProbQCD, float ProbTTHard, float ProbWJets, float ProbZJets, float ProbTTSemi, float ProbHHH4b2tau, float ProbTTlep, float ProbVV, float ProbHH4b, float ProbHH2b2tau){
     std::vector<float> probs;
-    probs.push_back(ProbHHH);
-    probs.push_back(ProbQCD);
-    probs.push_back(ProbTT);
-    probs.push_back(ProbVJets);
-    probs.push_back(ProbVV);
-    probs.push_back(ProbHHH4b2tau);
-    probs.push_back(ProbHH4b);
-    probs.push_back(ProbHH2b2tau);
-    //probs.push_back(ProbDY);
+    probs.push_back(ProbHHH6b);    // 1
+    probs.push_back(ProbQCD);      // 2
+    probs.push_back(ProbTTHard);   // 3
+    probs.push_back(ProbWJets);    // 4
+    probs.push_back(ProbZJets);    // 5
+    probs.push_back(ProbTTSemi);   // 6
+    probs.push_back(ProbHHH4b2tau);// 7
+    probs.push_back(ProbTTlep);    // 8
+    probs.push_back(ProbVV);       // 9
+    probs.push_back(ProbHH4b);     // 10
+    probs.push_back(ProbHH2b2tau); // 11
 
     auto it = std::max_element(probs.begin(), probs.end());
     int index = std::distance(probs.begin(), it);
@@ -898,20 +905,14 @@ def init_get_max_prob():
 
 
 getmaxcat = '''
-int get_max_cat(float Prob0rh0bh0th, float Prob1rh0bh0th, float Prob2rh0bh0th, float Prob0rh1bh0th, float Prob1rh1bh0th, float Prob0rh2bh0th, float Prob0rh0bh1th, float Prob1rh0bh1th, float Prob2rh0bh1th, float Prob0rh1bh1th, float Prob1rh1bh1th, float Prob0rh2bh1th){
+int get_max_cat(float Prob0rh0bh, float Prob1rh0bh, float Prob2rh0bh, float Prob0rh1bh, float Prob1rh1bh, float Prob0rh2bh){
     std::vector<float> probs;
-    probs.push_back(Prob0rh0bh0th);
-    probs.push_back(Prob1rh0bh0th);
-    probs.push_back(Prob2rh0bh0th);
-    probs.push_back(Prob0rh1bh0th);
-    probs.push_back(Prob1rh1bh0th);
-    probs.push_back(Prob0rh2bh0th);
-    probs.push_back(Prob0rh0bh1th);
-    probs.push_back(Prob1rh0bh1th);
-    probs.push_back(Prob2rh0bh1th);
-    probs.push_back(Prob0rh1bh1th);
-    probs.push_back(Prob1rh1bh1th);
-    probs.push_back(Prob0rh2bh1th);
+    probs.push_back(Prob0rh0bh);  // 1: 0bh0h
+    probs.push_back(Prob1rh0bh);  // 2: 0bh1h
+    probs.push_back(Prob2rh0bh);  // 3: 0bh2h
+    probs.push_back(Prob0rh1bh);  // 4: 1bh0h
+    probs.push_back(Prob1rh1bh);  // 5: 1bh1h
+    probs.push_back(Prob0rh2bh);  // 6: 2bh0h
 
     auto it = std::max_element(probs.begin(), probs.end());
     int index = std::distance(probs.begin(), it);
@@ -975,55 +976,55 @@ def matching_variables(df):
         higgsmatched.append('int(%sHiggsMatched)'%j)
         h1match.append('int(%sHiggsMatchedIndex == 1 && %sFatJetMatched == 0)'%(j,j))
         h2match.append('int(%sHiggsMatchedIndex == 2 && %sFatJetMatched == 0)'%(j,j))
-        h3match.append('int(%sHiggsMatchedIndex == 3 && %sFatJetMatched == 0)'%(j,j))
-    for t in ['tau1','tau2','tau3','tau4']:#,'lep1','lep2','lep3','lep4']:
-        higgsmatchedtau.append('int(%sHiggsMatched)'%t)
-        h1matchtau.append('int(%sHiggsMatchedIndex == 1 && %sFatJetMatched == 0)'%(t,t))
-        h2matchtau.append('int(%sHiggsMatchedIndex == 2 && %sFatJetMatched == 0)'%(t,t))
-        h3matchtau.append('int(%sHiggsMatchedIndex == 3 && %sFatJetMatched == 0)'%(t,t))
+        #h3match.append('int(%sHiggsMatchedIndex == 3 && %sFatJetMatched == 0)'%(j,j))
+    #for t in ['tau1','tau2','tau3','tau4']:#,'lep1','lep2','lep3','lep4']:
+    #    higgsmatchedtau.append('int(%sHiggsMatched)'%t)
+    #    h1matchtau.append('int(%sHiggsMatchedIndex == 1 && %sFatJetMatched == 0)'%(t,t))
+    #    h2matchtau.append('int(%sHiggsMatchedIndex == 2 && %sFatJetMatched == 0)'%(t,t))
+    #    h3matchtau.append('int(%sHiggsMatchedIndex == 3 && %sFatJetMatched == 0)'%(t,t))
 
     higgsMatchVar = '+'.join(higgsmatched)
-    higgsMatchVarTau = '+'.join(higgsmatchedtau)
+    #higgsMatchVarTau = '+'.join(higgsmatchedtau)
     h1MatchVar = '+'.join(h1match)
     h2MatchVar = '+'.join(h2match)
-    h3MatchVar = '+'.join(h3match)
-    h1MatchTauVar = '+'.join(h1matchtau)
-    h2MatchTauVar = '+'.join(h2matchtau)
-    h3MatchTauVar = '+'.join(h3matchtau)
+    #h3MatchVar = '+'.join(h3match)
+    #h1MatchTauVar = '+'.join(h1matchtau)
+    #h2MatchTauVar = '+'.join(h2matchtau)
+    #h3MatchTauVar = '+'.join(h3matchtau)
 
     fatjetmatched = []
     fj_h1match = []
     fj_h2match = []
-    fj_h3match = []
+    #fj_h3match = []
     for j in ['fatJet1','fatJet2','fatJet3','fatJet4']:
         fatjetmatched.append('int(%sHiggsMatched)'%j)
         fj_h1match.append('int(%sHiggsMatchedIndex == 1)'%j)
         fj_h2match.append('int(%sHiggsMatchedIndex == 2)'%j)
-        fj_h3match.append('int(%sHiggsMatchedIndex == 3)'%j)
+        #fj_h3match.append('int(%sHiggsMatchedIndex == 3)'%j)
 
     fjMatchVar = '+'.join(fatjetmatched)
     fj_h1MatchVar = '+'.join(fj_h1match)
     fj_h2MatchVar = '+'.join(fj_h2match)
-    fj_h3MatchVar = '+'.join(fj_h3match)
+    #fj_h3MatchVar = '+'.join(fj_h3match)
 
     df = df.Define('nAK4matched', higgsMatchVar)
-    df = df.Define('nTaumatched', higgsMatchVarTau)
+    #df = df.Define('nTaumatched', higgsMatchVarTau)
     df = df.Define('nAK8matched', fjMatchVar)
     df = df.Define('h1Match',h1MatchVar)
     df = df.Define('h2Match',h2MatchVar)
-    df = df.Define('h3Match',h3MatchVar)
-    df = df.Define('h1MatchTau',h1MatchTauVar)
-    df = df.Define('h2MatchTau',h2MatchTauVar)
-    df = df.Define('h3MatchTau',h3MatchTauVar)
+    #df = df.Define('h3Match',h3MatchVar)
+    #df = df.Define('h1MatchTau',h1MatchTauVar)
+    #df = df.Define('h2MatchTau',h2MatchTauVar)
+    #df = df.Define('h3MatchTau',h3MatchTauVar)
     df = df.Define('fj_h1Match',fj_h1MatchVar)
     df = df.Define('fj_h2Match',fj_h2MatchVar)
-    df = df.Define('fj_h3Match',fj_h3MatchVar)
+    #df = df.Define('fj_h3Match',fj_h3MatchVar)
 
-    df = df.Define('nAK4HiggsReco', 'int(h1Match >= 2)+ int(h2Match >= 2)+ int(h3Match >= 2)')
-    df = df.Define('nAK4onlyHiggsReco', 'int(h1Match >= 2)*int(h1MatchTau < 2)+ int(h2Match >= 2)*int(h2MatchTau < 2)+ int(h3Match >= 2)*int(h3MatchTau < 2)')
-    df = df.Define('nTauHiggsReco', 'int(h1MatchTau >= 2)+ int(h2MatchTau >= 2)+ int(h3MatchTau >= 2)')
-    df = df.Define('nAK8HiggsReco', 'int(fj_h1Match >= 1)+ int(fj_h2Match >= 1)+ int(fj_h3Match >= 1)')
-    df = df.Define('categorisation','categorisationfunc( nAK4HiggsReco,nAK8HiggsReco)')
-    df = df.Define('categorisation4b2tau','categorisationfunc( nAK4onlyHiggsReco+nTauHiggsReco,nAK8HiggsReco)')
+    #df = df.Define('nAK4HiggsReco', 'int(h1Match >= 2)+ int(h2Match >= 2)+ int(h3Match >= 2)')
+    #df = df.Define('nAK4onlyHiggsReco', 'int(h1Match >= 2)*int(h1MatchTau < 2)+ int(h2Match >= 2)*int(h2MatchTau < 2)+ int(h3Match >= 2)*int(h3MatchTau < 2)')
+    #df = df.Define('nTauHiggsReco', 'int(h1MatchTau >= 2)+ int(h2MatchTau >= 2)+ int(h3MatchTau >= 2)')
+    #df = df.Define('nAK8HiggsReco', 'int(fj_h1Match >= 1)+ int(fj_h2Match >= 1)+ int(fj_h3Match >= 1)')
+    #df = df.Define('categorisation','categorisationfunc( nAK4HiggsReco,nAK8HiggsReco)')
+    #df = df.Define('categorisation4b2tau','categorisationfunc( nAK4onlyHiggsReco+nTauHiggsReco,nAK8HiggsReco)')
 
     return df

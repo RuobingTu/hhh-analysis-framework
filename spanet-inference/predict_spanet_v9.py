@@ -203,12 +203,12 @@ for i in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
 
     column = [el % 'jet%s' % i for el in jet_vars]
     np_dict = df.AsNumpy(column)
-    np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+    np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
     arrays.append(np_arr)
 
     column_mask = [el % 'jet%s' % i for el in jetmask_var]
     np_dict_mask = df.AsNumpy(column_mask)
-    np_arr_mask = np.vstack(np_dict_mask[col] for col in column_mask).T.astype(np.float32)
+    np_arr_mask = np.vstack([np_dict_mask[col] for col in column_mask]).T.astype(np.float32)
     arrays_jetmask.append(np_arr_mask)
 
 
@@ -227,12 +227,12 @@ for i in ['1', '2', '3', '4']:
 
     column = [el % i for el in fatjet_vars]
     np_dict = df.AsNumpy(column)
-    np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+    np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
     boosted_arrays.append(np_arr)
 
     column_mask = [el % i for el in fatjetmask_var]
     np_dict_mask = df.AsNumpy(column_mask)
-    np_arr_mask = np.vstack(np_dict_mask[col] for col in column_mask).T.astype(np.float32)
+    np_arr_mask = np.vstack([np_dict_mask[col] for col in column_mask]).T.astype(np.float32)
     boosted_arrays_mask.append(np_arr_mask)
 
 
@@ -250,12 +250,12 @@ for i in ['1', '2']:  # was ['1','2','3']
 
     column = [el % i for el in lep_vars]
     np_dict = df.AsNumpy(column)
-    np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+    np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
     lep_arrays.append(np_arr)
 
     column_mask = [el % i for el in lep_vars_mask]
     np_dict_mask = df.AsNumpy(column_mask)
-    np_arr_mask = np.vstack(np_dict_mask[col] for col in column_mask).T.astype(np.float32)
+    np_arr_mask = np.vstack([np_dict_mask[col] for col in column_mask]).T.astype(np.float32)
     lep_arrays_mask.append(np_arr_mask)
 
 
@@ -274,12 +274,12 @@ for i in ['1', '2', '3', '4']:
 
     column = [el % i for el in tau_vars]
     np_dict = df.AsNumpy(column)
-    np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+    np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
     tau_arrays.append(np_arr)
 
     column_mask = [el % i for el in tau_vars_mask]
     np_dict_mask = df.AsNumpy(column_mask)
-    np_arr_mask = np.vstack(np_dict_mask[col] for col in column_mask).T.astype(np.float32)
+    np_arr_mask = np.vstack([np_dict_mask[col] for col in column_mask]).T.astype(np.float32)
     tau_arrays_mask.append(np_arr_mask)
 
 
@@ -297,12 +297,12 @@ df = df.Define('higgs3_Sinphi_manu', 'TMath::Sin(higgs3_phi_manu)')
 
 column = tau_pair_vars
 np_dict = df.AsNumpy(column)
-np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
 tau_pair_arrays.append(np_arr)
 
 column_mask = tau_pair_vars_mask
 np_dict_mask = df.AsNumpy(column_mask)
-np_arr_mask = np.vstack(np_dict_mask[col] for col in column_mask).T.astype(np.float32)
+np_arr_mask = np.vstack([np_dict_mask[col] for col in column_mask]).T.astype(np.float32)
 tau_pair_arrays_mask.append(np_arr_mask)
 
 
@@ -329,12 +329,12 @@ for i in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
 
         column = [el % (i, j) for el in Higgs_vars]
         np_dict = df.AsNumpy(column)
-        np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+        np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
         Higgs_list.append(np_arr)
 
         column_mask = [el % (i, j) for el in Higgs_vars_mask]
         np_dict_mask = df.AsNumpy(column_mask)
-        np_arr_mask = np.vstack(np_dict_mask[col] for col in column_mask).T.astype(np.float32)
+        np_arr_mask = np.vstack([np_dict_mask[col] for col in column_mask]).T.astype(np.float32)
         Higgs_list_mask.append(np_arr_mask)
 
     Jets_arrays[name] = Higgs_list
@@ -348,7 +348,7 @@ met_arrays = []
 met_vars = ['met']
 column = [el for el in met_vars]
 np_dict = df.AsNumpy(column)
-np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
 met_arrays.append(np_arr)
 
 
@@ -359,7 +359,7 @@ ht_arrays = []
 ht_vars = ['ht', 'kind_category_analysis']  # was just ['ht']
 column = [el for el in ht_vars]
 np_dict = df.AsNumpy(column)
-np_arr = np.vstack(np_dict[col] for col in column).T.astype(np.float32)
+np_arr = np.vstack([np_dict[col] for col in column]).T.astype(np.float32)
 ht_arrays.append(np_arr)
 
 
@@ -371,7 +371,7 @@ array_4vec = []
 for i in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
     column_4vec = [el % 'jet%s' % i for el in jet_4vec]
     np_4vec = df.AsNumpy(column_4vec)
-    np_arr_4vec = np.vstack(np_4vec[col] for col in column_4vec).T
+    np_arr_4vec = np.vstack([np_4vec[col] for col in column_4vec]).T
     array_4vec.append(np_arr_4vec)
 
 jets = []
@@ -394,7 +394,7 @@ array_taus_4vec = []
 for i in ['1', '2', '3', '4']:
     column_4vec = [el % 'tau%s' % i for el in taus_4vec]
     np_4vec = df.AsNumpy(column_4vec)
-    np_arr_4vec = np.vstack(np_4vec[col] for col in column_4vec).T
+    np_arr_4vec = np.vstack([np_4vec[col] for col in column_4vec]).T
     array_taus_4vec.append(np_arr_4vec)
 for i in range(len(array_taus_4vec[0])):
     taus_tmp = []
@@ -410,7 +410,7 @@ array_fj_4vec = []
 for i in ['1', '2', '3', '4']:
     column_4vec = [el % 'fatJet%s' % i for el in fatjet_4vec]
     np_4vec = df.AsNumpy(column_4vec)
-    np_arr_4vec = np.vstack(np_4vec[col] for col in column_4vec).T
+    np_arr_4vec = np.vstack([np_4vec[col] for col in column_4vec]).T
     array_fj_4vec.append(np_arr_4vec)
 
 fatjets = []

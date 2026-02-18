@@ -42,8 +42,8 @@ labels = addLabel_CMS_preliminary(luminosities[year])
 
 iPeriod = 0
 datahist   = 'data_obs'
-signalhist = 'GluGluToHHHTo6B_SM'
-signalhist2 = 'GluGluToHHTo4B_cHHH1'
+signalhist = 'HHHTo4B2Tau'
+signalhist2 = 'GluGluToHHTo2B2Tau'
 inputTree = 'Events'
 
 if not os.path.isdir(output_folder):
@@ -59,7 +59,7 @@ chunk_data   = ROOT.RDataFrame(inputTree, file_data)
 chunk_signal = ROOT.RDataFrame(inputTree, file_signal)
 chunk_signal2 = ROOT.RDataFrame(inputTree, file_signal2)
 variables = chunk_data.GetColumnNames()
-variables = ROOT.std.vector['string'](['fatJet1Mass','mvaBoosted','h1_spanet_boosted_mass','h2_spanet_boosted_mass','h3_spanet_boosted_mass','ProbHHH','ProbMultiH','ProbHH4b','ProbHHH4b2tau','ProbVV'])
+variables = ROOT.std.vector['string'](['fatJet1Mass','mvaBoosted','h1_spanet_boosted_mass','h2_spanet_boosted_mass','higgs3_mass_manu','ProbHHH','ProbMultiH','ProbHH4b','ProbHHH4b2tau','ProbVV'])
 
 #file_data = ROOT.TFile(input_folder + '/' + 'histograms_%s.root'%(datahist))
 #variables = [v.GetName() for v in file_data.GetListOfKeys()]
@@ -108,7 +108,8 @@ for var in variables:
     #file_signal = ROOT.TFile(input_folder + '/' + 'histograms_%s.root'%('GluGluToHHHTo6B_SM'))
 
     files_bkg = {}
-    for bkg in ['DYJetsToLL','GluGluToHHTo2B2Tau','ZZZ','WWW','WZZ','ZZTo4Q', 'WWTo4Q','ZJetsToQQ', 'WJetsToQQ', 'TTToHadronic','TTToSemiLeptonic','QCD']:
+    #for bkg in ['GluGluToHHTo2B2Tau','ZZZ','WWW','WZZ','ZZTo4Q', 'WWTo4Q','ZJetsToQQ', 'WJetsToQQ', 'TTToHadronic','TTToSemiLeptonic','QCD']:
+    for bkg in ["QCD", "WWTo4Q", "WZTo2Q2L", "ZJetsToQQ", "ZZTo2L2Nu", "ZZTo2Q2L", "TTTo2L2Nu", "TTToHadronic", "TTToSemiLeptonic", "WWTo1L1Nu2Q", "GluGluToHHTo4B", "HHHTo6B"]:
         #f_tmp = ROOT.TFile(input_folder + '/' + 'histograms_%s.root'%bkg)
         f_tmp = "{}/{}.root".format(input_folder, bkg)
         if os.path.exists(f_tmp) :
@@ -119,7 +120,8 @@ for var in variables:
 
     #h_data = template.Clone()
     #h_data = chunk_data.Fill(template, [char_var])
-    h_data = chunk_data.Histo1D((char_var,char_var,nbins,xmin,xmax),char_var)
+    #h_data = chunk_data.Histo1D((char_var,char_var,nbins,xmin,xmax),char_var)
+    h_data = chunk_data.Histo1D((char_var,char_var,nbins,xmin,xmax),char_var, 'totalWeight')
     h_data.Draw()
     h_data = h_data.GetValue()
     h_data.SetTitle(hist_properties[datahist][3])
@@ -153,7 +155,7 @@ for var in variables:
             h_data.SetBinContent(bin_blind,-3.0000001)
             h_data.SetBinError(bin_blind,0)
 
-    if 'ProbHHH' in str(var) or 'ProbMultiH' in str(var):
+    if 'ProbHHH4b2tau' in str(var) or 'ProbMultiH' in str(var):
         blind_bdt = [x*0.001 + 0.95 for x in range(1000)]
         for value in blind_bdt:
             bin_blind = h_data.FindBin(value)

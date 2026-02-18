@@ -144,9 +144,9 @@ df = addBTagEffSF(df,f_in,'tight')
 if 'JetHT' not in f_in and 'BTagCSV' not in f_in:
     tt_init(args.year,args.f_in)
 
-df = addTTWeight(df,f_in,'loose')
-df = addTTWeight(df,f_in,'medium')
-df = addTTWeight(df,f_in,'tight')
+#df = addTTWeight(df,f_in,'loose')
+#df = addTTWeight(df,f_in,'medium')
+#df = addTTWeight(df,f_in,'tight')
 
 # Define new variables
 if 'hhh_t3_pt' not in df.GetColumnNames():

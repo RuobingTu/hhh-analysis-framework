@@ -11,7 +11,7 @@ import time
 import os.path
 from os import path
 #from root_numpy import tree2array, array2tree
-#import numpy as np
+import numpy as np
 #import pandas
 import glob
 import gc
@@ -21,7 +21,7 @@ import gc
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.ROOT.EnableImplicitMT()
 
-from utils import histograms_dict, wps_years, tags, luminosities, hlt_paths, triggersCorrections, hist_properties, init_mhhh, addMHHH, clean_variables, initialise_df, save_variables, init_get_max_prob, init_get_max_cat
+from utils import histograms_dict, category_binning_overrides, wps_years, tags, luminosities, hlt_paths, triggersCorrections, hist_properties, init_mhhh, addMHHH, clean_variables, initialise_df, save_variables, init_get_max_prob, init_get_max_cat
 from machinelearning import init_bdt, add_bdt, init_bdt_boosted, add_bdt_boosted
 from calibrations import btag_init, addBTagSF, addBTagEffSF
 from hhh_variables import add_hhh_variables
@@ -1452,6 +1452,15 @@ for selection in selections.keys() :
                 print("The binning options for the variable %s should be added in utils" % do_limit_input)
                 exit()
 
+            # Check for category-specific non-uniform binning
+            use_variable_bins = False
+            variable_bin_edges = None
+            if selection in category_binning_overrides:
+                variable_bin_edges = np.array(category_binning_overrides[selection], dtype=np.float64)
+                use_variable_bins = True
+                print("Using non-uniform binning for %s in %s: %d bins" % (
+                    do_limit_input, selection, len(variable_bin_edges) - 1))
+
             nameout = output_histos + '/' + 'histograms_%s.root'%(do_limit_input)
             f_out = ROOT.TFile(nameout, 'recreate')
             print("Writing in %s" % nameout)
@@ -1475,9 +1484,12 @@ for selection in selections.keys() :
 
                 char_var = var.c_str()
                 try:
-                    #h_tmp = chunk_df.Fill(template, [char_var, 'totalWeight'])
                     f_out.cd()
-                    h_tmp = chunk_df.Histo1D((char_var,char_var,nbins,xmin,xmax),char_var, 'totalWeight')
+                    if use_variable_bins:
+                        h_model = ROOT.RDF.TH1DModel(char_var, char_var, len(variable_bin_edges) - 1, variable_bin_edges)
+                        h_tmp = chunk_df.Histo1D(h_model, char_var, 'totalWeight')
+                    else:
+                        h_tmp = chunk_df.Histo1D((char_var,char_var,nbins,xmin,xmax),char_var, 'totalWeight')
                     h_tmp.SetTitle('%s'%(proctodo))
                     h_tmp.SetName('%s'%(proctodo))
                     h_tmp.Write()

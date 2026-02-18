@@ -32,8 +32,8 @@ year = args.year
 #path = os.path.join(args.path, '%s_ak8_option4_%s'%(version,year), '*', 'parts')
 #path = "/eos/user/r/rtu/Turb325Output2017_ak8_option92_2017/mc/parts/"
 #path = "/eos/user/r/rtu/Turb507Outputdata2017_ak8_option92_2017/data/parts/"
-path = "/eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/mc/parts/"
-args.output = "/eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/mc/"
+path = "/eos/user/r/rtu/Turb627OutputMC2017_ak8_option92_2017/mc/parts_SPANET/simple/"
+args.output = "/eos/user/r/rtu/Turb627OutputMC2017_ak8_option92_2017/mc/parts_SPANET/"
 print(path)
 
 output = os.path.join(args.output, '%s-parts-no-lhe'%version, 'mva-inputs-%s'%year)
@@ -55,8 +55,6 @@ for cut in cutlist:
 files = glob.glob(path + '/' + '*.root')
 #files = files[:1]
 if args.f_in!='': files = [args.f_in]
-
-first = True
 
 init_mhhh()
 
@@ -112,11 +110,6 @@ for f_in in files:
             df = df.Define(trig,'get_false()')
     hlt = hlt_paths[year]
     df = df.Filter(hlt)
-
-    if first:
-        #init_bdt(df,year)
-        #init_bdt_boosted(df,year)
-        first = False
 
     df = initialise_df(df,year,f_in)
 

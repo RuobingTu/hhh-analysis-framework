@@ -1,4 +1,4 @@
-cd /eos/user/r/rtu/Turb607OutputMC2017_ak8_option92_2017/v20-parts-no-lhe/mva-inputs-2017/inclusive-weights_SPANET
+cd /eos/user/r/rtu/Turb627OutputMC2017_ak8_option92_2017/mc/parts_SPANET/
 hadd DYJetsToLL.root DYJetsToLL*
 hadd GluGluToHHTo2B2Tau.root GluGluToHHTo2B2Tau*
 hadd GluGluToHHTo4B.root GluGluToHHTo4B*

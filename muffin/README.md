@@ -284,6 +284,51 @@ knowing:
   indistinguishable from `poster`. Retraining without φ is the obvious next
   step if these projections matter.
 
+## Cross-channel: applying the 1tau0l fake factor to 2tau0l
+
+`../closure_v29pre_muffin_2tau0l.py` + `run_closure_muffin_2tau0l.sh` do the same
+thing for 2tau0l. MUFFIN is a per-object weight, so it drops straight into the
+existing two-tau inclusion-exclusion template — evaluate it on τ₁ and τ₂ in turn
+and keep
+
+```
+FAKE = Σ[tight₁ & anti₂]·FF₂ + Σ[anti₁ & tight₂]·FF₁ − Σ[anti₁ & anti₂]·FF₁·FF₂
+```
+
+unchanged. Both fake factors were measured in 1tau0l and are applied here as they
+are, so this is a **cross-channel transfer test on equal terms**.
+
+2tau0l holds ~110 tight-tight data events, so `|1 − Data/Pred|` mostly measures
+the data Poisson noise; `CHI2=1 summarise_closure.py` reports χ²/ndf against the
+data instead (same Poisson error for both methods, hence comparable):
+
+| subset | n vars | χ²/ndf MUFFIN | χ²/ndf binned | D/P MUFFIN | D/P binned |
+|---|---|---|---|---|---|
+| all | 241 | 1.90 | **1.67** | 1.285 | **1.234** |
+| well populated (≥8 filled bins) | 112 | 1.79 | 1.71 | **1.172** | 1.190 |
+| sparse / zero-filtered | 129 | 2.00 | **1.63** | 1.382 | **1.273** |
+| τ-related | 16 | **1.93** | 1.98 | **1.164** | 1.182 |
+
+Per variable, on the τ sector MUFFIN transfers **better** — `tau1Pt` 0.94 vs
+1.15, `tau2Pt` 1.03 vs 1.12, `tau1Eta` 1.28 vs 1.55, `tau2Eta` 1.69 vs 2.22,
+`tau1decayMode` 1.12 vs 1.38 — and it is ~2% closer on the normalisation
+everywhere. On non-τ variables it transfers worse: `ht` 3.72 vs 2.69, `jet1Pt`
+0.66 vs 0.46, `higgs3_mass_manu` 1.70 vs 1.38.
+
+**The global verdict (MUFFIN worse, better in only 31% of variables) is driven
+entirely by the sparse subset** — jet7/jet8 and fatjet variables that exist only
+in high-multiplicity events, where MUFFIN under-predicts by 38% against the map's
+27%. That is exactly the failure mode to expect: MUFFIN takes `nsmalljets` and
+`nbtags` as inputs and the map does not, so a topology with a second τ and a
+different jet-multiplicity spectrum pushes it further from its training
+distribution. Both methods under-predict 2tau0l by ~17% overall, which is a
+property of the cross-channel transfer itself, not of either fake factor.
+
+So: the multivariate gain survives the transfer **in the sector it was built for**
+(the τ kinematics) and is paid for in the jet-multiplicity tails. If MUFFIN is to
+be used in 2tau0l, the obvious thing to test first is retraining without
+`nsmalljets`/`nbtags`, or measuring it in-channel.
+
 ## Using it in the analysis
 
 `export_muffin_cpp.py` writes a dependency-free header with a `muffin_weight()`

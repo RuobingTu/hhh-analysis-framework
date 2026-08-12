@@ -36,11 +36,20 @@ def curves(f, key):
     return v, e
 
 
-def collect(d):
-    """{variable: (muffin, binned)} of yield-weighted mean |1 - Data/Pred|."""
+def _resolve(d):
+    """Accept either a directory or the ROOT file itself."""
     if not os.path.isabs(d):
         d = os.path.join(os.path.dirname(os.path.abspath(__file__)), d)
-    path = os.path.join(d, sorted(f for f in os.listdir(d) if f.endswith('.root'))[0])
+    if d.endswith('.root'):
+        return d
+    # a run still in progress has an open, empty file -- take the largest
+    cands = [os.path.join(d, f) for f in os.listdir(d) if f.endswith('.root')]
+    return max(cands, key=os.path.getsize)
+
+
+def collect(d):
+    """{variable: (muffin, binned)} of yield-weighted mean |1 - Data/Pred|."""
+    path = _resolve(d)
     f = uproot.open(path)
     keys = set(k.split(';')[0] for k in f.keys())
     out = {}
@@ -93,16 +102,61 @@ def compare(d1, d2):
                  100 * p[:, 1].mean(), 100 * p[:, 2].mean()))
 
 
+def chi2_mode(d):
+    """Low-statistics comparison: chi2 of each prediction against the data,
+    using the data Poisson error only (identical for both methods, so the two
+    chi2 are directly comparable).  With ~10 events per bin the |1 - r| metric
+    just measures the data statistics, not the fake factor."""
+    path = _resolve(d)
+    f = uproot.open(path)
+    keys = set(k.split(';')[0] for k in f.keys())
+    rows = []
+    for k in sorted(keys):
+        if not k.endswith('_ratio'):
+            continue
+        base = k[:-len('_ratio')]
+        if base + '_ratio_binned' not in keys or base + '_data' not in keys:
+            continue
+        dat = f[base + '_data'].values()
+        rm = f[base + '_ratio'].values()
+        rb = f[base + '_ratio_binned'].values()
+        m = (dat > 0) & (rm > 0) & (rb > 0)
+        if m.sum() < 3:
+            continue
+        pm, pb = dat[m] / rm[m], dat[m] / rb[m]     # pred = data / ratio
+        var = np.maximum(dat[m], 1.0)               # Poisson on the data
+        cm = float(((dat[m] - pm) ** 2 / var).sum() / m.sum())
+        cb = float(((dat[m] - pb) ** 2 / var).sum() / m.sum())
+        rows.append((_short(base), cm, cb, cb - cm, int(m.sum()),
+                     float(dat[m].sum()), float(pm.sum()), float(pb.sum())))
+    rows.sort(key=lambda r: -r[3])
+    print('%s\n%d variables\n' % (path, len(rows)))
+    print('chi2/ndf against the data (Poisson errors); integral data/pred')
+    print('%-40s %8s %8s %6s %9s %9s' % ('variable', 'MUFFIN', 'binned', 'nbin',
+                                         'D/P muf', 'D/P bin'))
+    print('-' * 86)
+    for r in rows[:12] + [None] + rows[-12:]:
+        if r is None:
+            print('   ... %d in between ...' % max(0, len(rows) - 24))
+            continue
+        n, cm, cb, _g, nb, dd, pm, pb = r
+        print('%-40s %8.2f %8.2f %6d %9.3f %9.3f'
+              % (n, cm, cb, nb, dd / max(pm, 1e-9), dd / max(pb, 1e-9)))
+    a = np.array([(r[1], r[2]) for r in rows])
+    print('-' * 86)
+    print('%-40s %8.2f %8.2f   MUFFIN better in %d/%d (%.0f%%)'
+          % ('MEAN chi2/ndf', a[:, 0].mean(), a[:, 1].mean(),
+             int((a[:, 0] < a[:, 1]).sum()), len(rows),
+             100.0 * (a[:, 0] < a[:, 1]).sum() / len(rows)))
+
+
 def main():
+    if os.environ.get('CHI2'):
+        return chi2_mode(sys.argv[1])
     if len(sys.argv) > 2:
         return compare(sys.argv[1], sys.argv[2])
     d = sys.argv[1] if len(sys.argv) > 1 else 'out/closure_muffin_vr'
-    if not os.path.isabs(d):
-        d = os.path.join(os.path.dirname(os.path.abspath(__file__)), d)
-    roots = [f for f in os.listdir(d) if f.endswith('.root')]
-    if not roots:
-        sys.exit('no ROOT file in %s' % d)
-    path = os.path.join(d, sorted(roots)[0])
+    path = _resolve(d)
     f = uproot.open(path)
     keys = set(k.split(';')[0] for k in f.keys())
 

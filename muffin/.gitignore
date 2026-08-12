@@ -2,3 +2,4 @@
 # and stale after a re-production
 out/cache/
 __pycache__/
+out/closure_muffin_*/

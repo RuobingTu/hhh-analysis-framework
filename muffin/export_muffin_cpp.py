@@ -154,16 +154,25 @@ def emit(models, tag, feature_names):
             '}', '']
     boots = [s for s, _ in models if s.startswith('boot')]
     if boots:
+        def call(s):
+            parts = ['FEAT', 'THR', 'LEFT', 'RIGHT', 'MISS', 'OFF', 'NTREE', 'B0', 'NORM']
+            return '%s::eval(x, %s)' % (ns, ', '.join('%s::%s_%s' % (ns, p, s) for p in parts))
+
         out += ['inline double muffin_weight_boot(int i, %s) {' % args,
                 fill.rstrip('\n'), '  switch (i) {']
         for s in boots:
-            out += ['    case %d: return %s::eval(x, %s::FEAT_%s, %s::THR_%s, %s::LEFT_%s,'
-                    % (int(s[4:]), ns, ns, s, ns, s, ns, s),
-                    '                             %s::RIGHT_%s, %s::MISS_%s, %s::OFF_%s,'
-                    % (ns, s, ns, s, ns, s),
-                    '                             %s::NTREE_%s, %s::B0_%s, %s::NORM_%s);'
-                    % (ns, s, ns, s, ns, s)]
+            out += ['    case %d: return %s;' % (int(s[4:]), call(s))]
         out += ['  }', '  return muffin_weight(%s);' % ', '.join(feature_names),
+                '}', '']
+        # per-event spread of the bootstrap replicas = the statistical uncertainty
+        # of the fake factor, for the band on the closure plots
+        out += ['inline double muffin_weight_rms(%s) {' % args, fill.rstrip('\n'),
+                '  double s = 0., s2 = 0., v;']
+        for s in boots:
+            out += ['  v = %s; s += v; s2 += v * v;' % call(s)]
+        out += ['  const double n = %d.;' % len(boots),
+                '  const double m = s / n, var = s2 / n - m * m;',
+                '  return var > 0. ? std::sqrt(var) : 0.;',
                 '}', '']
     return '\n'.join(out)
 

@@ -176,6 +176,38 @@ stale after a re-production — delete it.
 2. **MR→VR closure vs the binned map** (`closure_muffin.py`), the table above.
 3. **Uncertainty decomposition**, printed by the same script.
 
+## Full-variable closure plots, in the analysis' own format
+
+`../closure_v29pre_muffin_1tau0l_20bin_split.py` is a copy of
+`closure_v29pre_in_v29pre_option92_1tau0l_NHiggs_20bin_split.py` with one
+addition: `USE_MUFFIN=1` builds the stacked fake-τ template from the MUFFIN
+weight instead of the binned map, and the ratio pad then carries **both**
+Data/Pred curves — MUFFIN as the black points, the binned map as a red line.
+Same events, same MC-prompt stack, same anti-ID selection and prompt
+subtraction, so the gap between the two curves is the difference between the
+two fake factors and nothing else. Regions, samples, weights, variable list,
+binning and styling are untouched.
+
+```bash
+bash muffin/run_closure_muffin.sh vr      # validation region, jet4DeepFlavB < 0.1
+bash muffin/run_closure_muffin.sh incl    # inclusive (contains the training region)
+bash muffin/run_closure_muffin.sh vr --variable ht        # one variable
+bash muffin/run_closure_muffin.sh vr --chunk 0/8          # condor-style chunking
+```
+
+Output: `out/closure_muffin_{vr,incl}/`, 280 variables × {log, lin} × {png, pdf}
+plus the histograms in a ROOT file (`*_ratio` = MUFFIN, `*_ratio_binned` = the
+binned map, `*_faketau` / `*_faketau_binned` = the two templates).
+
+The wrapper pins the settings that make the comparison meaningful:
+`TAU_TIGHT_WP=loose` (the WP MUFFIN is trained at, anti-ID window [2, 8)) and
+the current baseline map with `FR2D_YVAR=abseta`. The band on the MUFFIN
+prediction is its own bootstrap spread (`muffin_weight_rms` in the exported
+header), not the binned map's up/down.
+
+Note the inclusive region contains the determination region, so it is a
+consistency check rather than a test; the VR is the test.
+
 ## Using it in the analysis
 
 `export_muffin_cpp.py` writes a dependency-free header with a `muffin_weight()`

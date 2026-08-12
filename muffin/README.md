@@ -208,6 +208,49 @@ header), not the binned map's up/down.
 Note the inclusive region contains the determination region, so it is a
 consistency check rather than a test; the VR is the test.
 
+`summarise_closure.py` ranks the variables by how much MUFFIN moves the closure,
+reading both curves out of the ROOT file (bins with <25 data events are dropped —
+they carry no information about the fake factor and otherwise dominate any
+average):
+
+```bash
+bash muffin/run.sh summarise_closure.py out/closure_muffin_vr
+```
+
+Result over the 234 variables that survive the cut, yield-weighted
+mean |1 − Data/Pred|:
+
+| | VR | inclusive |
+|---|---|---|
+| MUFFIN | 5.56% | 4.07% |
+| binned map | 5.61% | 4.19% |
+| MUFFIN better in | 46% of variables | 50% |
+
+So **on the flat average over all variables the two methods are equivalent** —
+most of that list is jet-pair kinematics only weakly coupled to the fake factor,
+where the differences are noise. The gains and losses are concentrated:
+
+| improves (VR) | | degrades (VR) | |
+|---|---|---|---|
+| `tau1jetQGL` | +11.9% | `tau1jetDeepFlavB` | −6.3% |
+| `tau1Pt` | +8.0% | `tau1Phi` | −2.2% |
+| `tau1decayMode` | +6.0% | `massjet7jet8` | −1.9% |
+| `ProbHHH4b2tau_*` (all trainings) | +1.4…+2.7% | φ-type jet-pair vars | −1% each |
+| `tau1Mt` | +1.7% | | |
+
+The improvement lands on the τ variables and — the part that matters for the
+final fit — on every SPANet ProbHHH4b2tau training. The two losses are worth
+knowing:
+
+- **`tau1jetDeepFlavB` (−6.3%)** is the mother-jet flavour axis that the FR
+  method dropped. Neither fake factor uses it, but the binned map's
+  `jetPt × |η|` cells track it better than MUFFIN's variables do.
+- **`tau1Phi` (−2.2%) and the φ-type jet-pair variables (−1% each)** point at
+  the one poster feature that carries no physics for a fake factor. With 28k DR
+  events φ is capacity spent on noise, and the DR scan found `poster_nophi`
+  indistinguishable from `poster`. Retraining without φ is the obvious next
+  step if these projections matter.
+
 ## Using it in the analysis
 
 `export_muffin_cpp.py` writes a dependency-free header with a `muffin_weight()`

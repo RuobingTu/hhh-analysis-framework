@@ -47,6 +47,21 @@ PLOTVARS = [
 ]
 
 
+def load_binned_ff_shift(path, shift):
+    """Same lookup, with every cell moved by `shift` times its bin error --
+    the binned map's statistical uncertainty, propagated the way the analysis
+    already does it with tauFR_weight_2d_up/_down."""
+    maps = {}
+    with uproot.open(path) as f:
+        for nj in ('nj45', 'nj6'):
+            for pr in ('1p', '3p'):
+                h = f['fr2d_%s_%s' % (nj, pr)]
+                vals, xe, ye = h.to_numpy()
+                err = h.errors()
+                maps[(nj, pr)] = (np.clip(vals + shift * err, 0.0, 0.999), xe, ye)
+    return maps
+
+
 def load_binned_ff(path):
     """FR/(1-FR) lookup from the baseline fr2d map.
 
@@ -212,12 +227,62 @@ def main():
     # the DR by the very cut (jet4DeepFlavB) that is not a feature, so the two
     # cannot be separated with this single validation region
     unc['non_closure_and_extrapolation'] = float(abs(1 - summary['TOTAL']['r_muffin']))
+
+    # the same budget for the binned map, so the comparison is like for like:
+    # its statistical component is the map's own bin errors, its non-closure is
+    # the same AR residual.
+    bunc = {}
+    nomb = (w_binned[y == 0] * wsig[y == 0]).sum()
+    shifts = []
+    for sh in (+1, -1):
+        wb = binned_ff(load_binned_ff_shift(mc.FR2D_REF, sh),
+                       ar['tau1jetPt'], ar[yvar], nj6, p3)
+        shifts.append((wb[y == 0] * wsig[y == 0]).sum())
+    bunc['statistical (coherent)'] = float(max(abs(v - nomb) for v in shifts) / abs(nomb))
+
+    # ... and the same thing with the cells treated as independent, which is what
+    # the MUFFIN bootstrap measures.  The coherent envelope above is what the
+    # analysis actually applies (tauFR_weight_2d_up/_down move every cell the
+    # same way), so both are worth quoting.
+    maps_up = load_binned_ff_shift(mc.FR2D_REF, +1)
+    cell = np.zeros(y.size, dtype=np.int64)
+    for ci, (nj, njm) in enumerate((('nj45', ~nj6), ('nj6', nj6))):
+        for pi, (pr, prm) in enumerate((('1p', ~p3), ('3p', p3))):
+            m = njm & prm
+            if not m.any():
+                continue
+            vals, xe, ye = maps[(nj, pr)]
+            i = np.clip(np.digitize(ar['tau1jetPt'][m], xe) - 1, 0, vals.shape[0] - 1)
+            j = np.clip(np.digitize(ar[yvar][m], ye) - 1, 0, vals.shape[1] - 1)
+            cell[m] = ((ci * 2 + pi) * vals.shape[0] + i) * vals.shape[1] + j
+    w_bin_up = binned_ff(maps_up, ar['tau1jetPt'], ar[yvar], nj6, p3)
+    f = y == 0
+    var = 0.0
+    for c in np.unique(cell[f]):
+        mm = f & (cell == c)
+        var += ((w_bin_up[mm] - w_binned[mm]) * wsig[mm]).sum() ** 2
+    bunc['statistical (uncorrelated)'] = float(np.sqrt(var) / abs(nomb))
+    bunc['non_closure_and_extrapolation'] = float(abs(1 - summary['TOTAL']['r_binned']))
+
     if unc:
-        print('\n=== MUFFIN uncertainty decomposition (inclusive, %s) ===' % args.region)
-        for k, v in unc.items():
-            print('  %-32s %6.2f%%' % (k, 100 * v))
-        print('  %-32s %6.2f%%' % ('total (quadrature)',
-                                   100 * np.sqrt(sum(v * v for v in unc.values()))))
+        print('\n=== uncertainty on the fake-tau yield (inclusive, %s) ===' % args.region)
+        print('  %-32s %8s %8s' % ('component', 'MUFFIN', 'binned'))
+        for k in ('statistical', 'statistical (coherent)',
+                  'statistical (uncorrelated)', 'modelling', 'bkg_subtraction',
+                  'non_closure_and_extrapolation'):
+            if k not in unc and k not in bunc:
+                continue
+            mv = '%6.2f%%' % (100 * unc[k]) if k in unc else '     --'
+            bv = '%6.2f%%' % (100 * bunc[k]) if k in bunc else '     --'
+            print('  %-32s %8s %8s' % (k, mv, bv))
+        tm = np.sqrt(sum(v * v for v in unc.values()))
+        tb = np.sqrt(sum(v * v for k, v in bunc.items()
+                         if k != 'statistical (uncorrelated)'))
+        print('  %-32s %7.2f%% %7.2f%%' % ('total (quadrature)', 100 * tm, 100 * tb))
+        print('  note: the binned map has no modelling or background-subtraction')
+        print('        entry here -- those are not evaluated for it in the')
+        print('        analysis, so its total is an underestimate by construction.')
+        unc['binned'] = bunc
 
     with open(os.path.join(pdir, 'closure_%s_summary.json' % args.region), 'w') as fh:
         json.dump(dict(summary=summary, metric=metric, uncertainty=unc,

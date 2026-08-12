@@ -510,12 +510,27 @@ def common_defines(df):
         df = df.Define('tauFR_w_up',    'tauFR_weight_up(tau1jetPt, tau1jetEta, tau1decayMode, %s)' % _njcol)
         df = df.Define('tauFR_w_down',  'tauFR_weight_down(tau1jetPt, tau1jetEta, tau1decayMode, %s)' % _njcol)
     if USE_MUFFIN:
-        # poster feature order: decay mode, seeding-jet/tau pT ratio, tau pT,
-        # njet, nbtag, eta, phi.  The band uses the bootstrap spread of the
-        # fake factor itself, not the binned map's up/down.
+        # The argument list is read off the exported header rather than hard
+        # coded, so a model trained on a different feature set (e.g. without
+        # phi) plugs in without touching this script.  The band uses the
+        # bootstrap spread of the fake factor itself, not the binned map's
+        # up/down.
         _nbcol = 'nbtags_eff' if FR_AST else 'nbtags'
-        _mufargs = ('tau1decayMode, (tau1jetPt/std::max(tau1Pt,1.e-6f)), tau1Pt, '
-                    '%s, %s, tau1Eta, tau1Phi' % (_njcol, _nbcol))
+        _expr = {
+            'tau1decayMode':    'tau1decayMode',
+            'ptratio':          '(tau1jetPt/std::max(tau1Pt,1.e-6f))',
+            'tau1Pt':           'tau1Pt',
+            'tau1jetPt':        'tau1jetPt',
+            'nsmalljets':       _njcol,
+            'nbtags':           _nbcol,
+            'tau1Eta':          'tau1Eta',
+            'abs_tau1Eta':      'std::fabs(tau1Eta)',
+            'tau1Phi':          'tau1Phi',
+            'tau1jetDeepFlavB': 'tau1jetDeepFlavB',
+            'tau1jetQGL':       'tau1jetQGL',
+        }
+        _mufargs = ', '.join(_expr[f] for f in muffin_features())
+        print('  MUFFIN inputs: %s' % _mufargs)
         df = df.Define('tauFR_w_muf', 'muffin_weight(%s)' % _mufargs)
         df = df.Define('tauFR_w_muf_rms', 'muffin_weight_rms(%s)' % _mufargs)
         df = df.Define('tauFR_w_muf_up', 'tauFR_w_muf + tauFR_w_muf_rms')
@@ -666,6 +681,16 @@ def declare_fr2d():
     if not ok:
         raise RuntimeError('tauFR_weight_2d Declare failed')
     print('  tauFR_weight_2d{,_up,_down} declared from %s (%dx%d per prong/njet)' % (FR2D_ROOT, npt, nb))
+
+
+def muffin_features():
+    """Feature names, in call order, as recorded by the exported header."""
+    tag = '// features (in order): '
+    with open(MUFFIN_HEADER) as fh:
+        for line in fh:
+            if line.startswith(tag):
+                return [f.strip() for f in line[len(tag):].split(',')]
+    raise RuntimeError('no feature list in %s' % MUFFIN_HEADER)
 
 
 def declare_muffin():
@@ -988,10 +1013,14 @@ def main():
             # MUFFIN: keep the binned template as the comparison curve, then swap
             # the MUFFIN one into h_fake, so the stack, the total and the band
             # that follow are all built from it without touching that code.
-            h_fake_binned = None
+            h_fake_binned = h_fake_binned_up = h_fake_binned_dn = None
             if USE_MUFFIN:
                 h_fake_binned = h_fake.Clone('%s_%s_faketau_binned' % (reg_name, var_name))
                 h_fake_binned.SetDirectory(0)
+                h_fake_binned_up = h_fake_up.Clone('%s_%s_faketau_binned_up' % (reg_name, var_name))
+                h_fake_binned_up.SetDirectory(0)
+                h_fake_binned_dn = h_fake_dn.Clone('%s_%s_faketau_binned_dn' % (reg_name, var_name))
+                h_fake_binned_dn.SetDirectory(0)
                 h_mc_l_muf    = _sum_list(bk['mc_l_muf'],      '%s_%s_mc_l_muf'      % (reg_name, var_name))
                 h_mc_l_muf_up = _sum_list(bk['mc_l_muf_up'],   '%s_%s_mc_l_muf_up'   % (reg_name, var_name))
                 h_mc_l_muf_dn = _sum_list(bk['mc_l_muf_down'], '%s_%s_mc_l_muf_down' % (reg_name, var_name))
@@ -1198,6 +1227,8 @@ def main():
             h_data.Write(); h_fake.Write(); h_tot.Write(); h_ratio.Write()
             if USE_MUFFIN and h_ratio_bin is not None:
                 h_fake_binned.Write(); h_ratio_bin.Write()
+                h_fake_binned_up.Write(); h_fake_binned_dn.Write()
+                h_fake_up.Write(); h_fake_dn.Write()
             if h_mc_p_total is not None:
                 h_mc_p_total.Write()
             for g in h_grp:

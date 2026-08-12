@@ -1,0 +1,44 @@
+{
+  "tag": "poster_nophi",
+  "features": [
+    "tau1decayMode",
+    "ptratio",
+    "tau1Pt",
+    "nsmalljets",
+    "nbtags",
+    "tau1Eta"
+  ],
+  "nominal": {
+    "max_depth": 2,
+    "eta": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "reg_lambda": 10.0,
+    "min_child_weight": 300.0,
+    "num_boost_round": 300
+  },
+  "base": "/eos/user/r/rtu/TurbOutputMC2017_v29pre_ak8_option92_2017",
+  "j4cut": 0.1,
+  "tau_pass": 8,
+  "n_dr": 153059,
+  "inclusive_ff": 0.26359425802930353,
+  "ranking": [
+    "ptratio",
+    "tau1decayMode",
+    "tau1Eta",
+    "tau1Pt",
+    "nsmalljets",
+    "nbtags"
+  ],
+  "bootstrap": 20,
+  "bkgsub": 0.1,
+  "variations": [
+    "deep",
+    "deeper",
+    "fastlr",
+    "loosereg",
+    "shallow",
+    "slowlr",
+    "tightreg"
+  ]
+}

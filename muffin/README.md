@@ -49,15 +49,48 @@ Uncertainty decomposition, inclusive, in the VR:
 
 | component | how | value |
 |---|---|---|
-| statistical | 20 Poisson-bootstrap replicas of the training set | 2.37% |
-| modelling | 7 hyper-parameter variations | 1.21% |
-| background subtraction | ±10% on the subtracted genuine-τ simulation | 1.75% |
-| non-closure + extrapolation | VR closure residual | 2.48% |
-| **total** | quadrature | **4.03%** |
+| component | how | MUFFIN | binned map |
+|---|---|---|---|
+| statistical | 20 Poisson-bootstrap retrainings / the map's bin errors treated as independent | 2.37% | 1.63% |
+| statistical, coherent envelope | every replica / every cell moved the same way | 11.4% per bin | 15.28% |
+| modelling | 7 hyper-parameter variations | 1.21% | not evaluated |
+| background subtraction | ±10% on the subtracted genuine-τ simulation | 1.75% | not evaluated |
+| non-closure + extrapolation | VR closure residual | 2.48% | 2.34% |
+
+**MUFFIN does not reduce the uncertainty on the fake-τ normalisation** — its
+statistical component is in fact slightly larger (2.37% vs 1.63%), which is what
+one expects: the binned map has 54 cells to determine, MUFFIN a continuous
+function in 7 variables, from the same 28k DR events. The gain is entirely in
+the shape, and concentrated in τ_h pT (see the table above).
+
+The coherent-envelope row is the convention the analysis actually applies
+(`tauFR_weight_2d_up/_down` moves every cell the same way); it is conservative
+for both methods. Per bin of τ_h pT, HT and jet1 pT the MUFFIN band is a flat
+11.4% while the map's grows from 13.7% to 16.5% into the tails, where its cells
+run out of events — `perbin_table.py` prints those tables.
 
 Non-closure and extrapolation cannot be separated with a single validation
 region: the VR differs from the MR by the very cut (`jet4DeepFlavB`) that is
 deliberately not a feature.
+
+### Dropping φ: tested, not adopted
+
+φ carries no physics for a fake factor, so the φ-projection degradation looked
+like it might be φ-as-an-input spending capacity on noise. Retrained without it
+(`--features poster_nophi`, full chain), that is only a quarter true:
+
+| | poster | no-φ | binned |
+|---|---|---|---|
+| `tau1Phi` | 6.74% | 5.20% | 4.57% |
+| `tau1decayMode` | 2.10% | 2.49% | 8.11% |
+| `tau1Mt` | 3.77% | 3.96% | 5.42% |
+| mean over 234 variables | **5.56%** | 5.59% | 5.61% |
+| mean over the 40 φ-type variables | 7.58% | 7.56% | 7.26% |
+
+Dropping φ halves the `tau1Phi` degradation but pays it back on decay mode and
+`tau1Mt`, leaves the φ-family average untouched, and is very slightly worse
+overall. So φ is *not* the cause, and the poster list is kept verbatim. The
+no-φ models and header are kept for reference.
 
 ## Conventions (identical to `measure_fr_flavour2d_v29pre.py`)
 

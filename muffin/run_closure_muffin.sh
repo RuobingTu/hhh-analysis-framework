@@ -29,7 +29,13 @@ export TAU_TIGHT_WP=loose
 # the current 1tau0l baseline map: x = tau1jetPt, y = |tau1Eta|, njet integrated
 export FR2D_ROOT=${FR2D_ROOT:-/afs/cern.ch/user/r/rtu/CMSSW_12_5_2/src/hhh-analysis-framework/fr_flavour2d_1tau0l_all-mr-eta_nonj_2017.root}
 export FR2D_YVAR=abseta
-export MUFFIN_HEADER=${MUFFIN_HEADER:-$HERE/out/muffin_poster.h}
-export CLOSURE_OUTDIR=${CLOSURE_OUTDIR:-$HERE/out/closure_muffin_$REGION}
+# MUFFIN_TAG picks which trained model to apply (poster, poster_nophi, ...).
+# The closure script reads the feature list off the header, so a different
+# feature set needs nothing else changed here.
+MUFFIN_TAG=${MUFFIN_TAG:-poster}
+SUFFIX=""
+[ "$MUFFIN_TAG" = "poster" ] || SUFFIX="_${MUFFIN_TAG#poster_}"
+export MUFFIN_HEADER=${MUFFIN_HEADER:-$HERE/out/muffin_$MUFFIN_TAG.h}
+export CLOSURE_OUTDIR=${CLOSURE_OUTDIR:-$HERE/out/closure_muffin${SUFFIX}_$REGION}
 
 exec python3 -u "$REPO/closure_v29pre_muffin_1tau0l_20bin_split.py" "$@"

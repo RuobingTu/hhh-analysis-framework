@@ -1,0 +1,4 @@
+# flattened region arrays -- rebuilt in ~2 min per region with prefetch.py,
+# and stale after a re-production
+out/cache/
+__pycache__/

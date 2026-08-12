@@ -21,6 +21,14 @@ SANE = float(os.environ.get('SANE', '0.25'))         # skip vars the binned map
                                                      # itself misses by more than this
 
 
+def _short(base):
+    """Strip the channel/region prefix the plotters put on every histogram."""
+    for pfx in ('inclusive_1tau0l_', '2tau0l_'):
+        if base.startswith(pfx):
+            return base[len(pfx):]
+    return base
+
+
 def curves(f, key):
     h = f[key]
     v = h.values()
@@ -49,7 +57,7 @@ def collect(d):
         if m.sum() < 3 or dat[m].sum() <= 0:
             continue
         w = dat[m] / dat[m].sum()
-        out[base.replace('inclusive_1tau0l_', '')] = (
+        out[_short(base)] = (
             float((np.abs(1 - rm[m]) * w).sum()), float((np.abs(1 - rb[m]) * w).sum()))
     return out
 
@@ -119,7 +127,7 @@ def main():
         w = dat[m] / dat[m].sum()
         am = float((np.abs(1 - rm[m]) * w).sum())
         ab = float((np.abs(1 - rb[m]) * w).sum())
-        rows.append((base.replace('inclusive_1tau0l_', ''), am, ab, ab - am,
+        rows.append((_short(base), am, ab, ab - am,
                      float(dat[m].sum())))
 
     rows.sort(key=lambda r: -r[3])

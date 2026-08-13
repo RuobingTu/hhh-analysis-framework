@@ -21,6 +21,7 @@ MUFFIN_TAG=${MUFFIN_TAG:-poster}
 SUFFIX=""
 [ "$MUFFIN_TAG" = "poster" ] || SUFFIX="_${MUFFIN_TAG#poster_}"
 export MUFFIN_HEADER=${MUFFIN_HEADER:-$HERE/out/muffin_$MUFFIN_TAG.h}
+[ "${SIDEBAND:-}" = "1" ] && SUFFIX="${SUFFIX}_sideband"
 export CLOSURE_OUTDIR=${CLOSURE_OUTDIR:-$HERE/out/closure_muffin${SUFFIX}_2tau0l}
 
 exec python3 -u "$REPO/closure_v29pre_muffin_2tau0l.py" "$@"

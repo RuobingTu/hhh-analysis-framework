@@ -80,11 +80,16 @@ FR2D_ROOT = os.environ.get('FR2D_ROOT',
 
 # MUFFIN: the 1tau0l-trained multivariate fake factor, applied per tau.
 # USE_MUFFIN=1 keeps the binned map too -- it is the comparison curve.
+# SIDEBAND=1: close on the single-tight sideband instead of (tight,tight).
+# Same fake factor, same events, 526 observed instead of 111.
+SIDEBAND = os.environ.get('SIDEBAND', '') == '1'
 USE_MUFFIN = os.environ.get('USE_MUFFIN', '') == '1'
 MUFFIN_HEADER = os.environ.get(
     'MUFFIN_HEADER', os.path.join(THIS_DIR, 'muffin', 'out', 'muffin_poster.h'))
 if USE_MUFFIN and 'CLOSURE_OUTDIR' not in os.environ:
     OUTDIR = OUTDIR + '_muffin'
+if SIDEBAND and 'CLOSURE_OUTDIR' not in os.environ:
+    OUTDIR = OUTDIR + '_sideband'
 
 NBINS_UNIFORM = int(os.environ.get('NBINS_UNIFORM', '20'))
 # BINS_JSON: {var: [edges]} overriding the default binning (statistics-optimised
@@ -510,7 +515,8 @@ def main():
         grp_df[gname] = gdf
     col_of = {g: c for g, _p, c in MC_GROUPS}
 
-    reg_label = 'CR: 2#tau_{h}0l (inclusive)'
+    reg_label = ('CR: 2#tau_{h}0l single-tight sideband' if SIDEBAND
+                 else 'CR: 2#tau_{h}0l (inclusive)')
 
     # =====================================================================
     # Selections
@@ -531,6 +537,21 @@ def main():
     SEL_B = '%s && anti1 && tight2' % POOL
     SEL_C = '%s && anti1 && anti2' % POOL
 
+    if SIDEBAND:
+        # Validate the fake factor where the statistics are: predict the
+        # single-tight sideband (526 data events) from (anti,anti), instead of
+        # (tight,tight) (111).  Promoting either tau of an (anti,anti) event
+        # gives an exactly-one-tight event, so
+        #     pred N(1T) = sum over (anti,anti) of [F(tau1) + F(tau2)]
+        # which is exact for independent per-object pass probabilities.  That
+        # maps onto the existing A + B - C machinery with both A and B pointing
+        # at (anti,anti) -- A carries FF2 and subtracts MC where tau2 is real,
+        # B carries FF1 and subtracts MC where tau1 is real -- and no C term.
+        SR_OBS = '%s && tight1 && anti2' % POOL
+        SEL_A = '%s && anti1 && anti2' % POOL
+        SEL_B = '%s && anti1 && anti2' % POOL
+        SEL_C = '%s && tau1Pt < 0' % POOL          # never true: drops the term
+
     # Data application-region dataframes
     df_data_A = df_data.Filter(SEL_A)
     df_data_B = df_data.Filter(SEL_B)
@@ -546,8 +567,12 @@ def main():
     df_mc_C = [d.Filter('%s && (tau1genPartFlav == 5 || tau2genPartFlav == 5)' % SEL_C)
                for d in df_mc_list]
 
-    # Per-group prompt tight (both taus real) for the observed stack
-    df_grp_t = {g: grp_df[g].Filter('%s && tau1genPartFlav == 5 && tau2genPartFlav == 5' % SR_OBS)
+    # Per-group prompt stack for the observed region.  In the sideband the
+    # observed region has one tight tau, so the prompt stack is the events whose
+    # TIGHT tau is real -- the anti-ID one is what the fake factor promotes.
+    _gen_obs = ('tau1genPartFlav == 5' if SIDEBAND
+                else 'tau1genPartFlav == 5 && tau2genPartFlav == 5')
+    df_grp_t = {g: grp_df[g].Filter('%s && %s' % (SR_OBS, _gen_obs))
                 for g in grp_df}
 
     # Signal overlays (tight1 && tight2 && kc_analysis==0)

@@ -11,3 +11,7 @@ beamer/*.nav
 beamer/*.out
 beamer/*.snm
 beamer/*.toc
+
+# research notes stay out of the synced repo -- they live with the other
+# CLAUDE_*.md notes in PhysicsTools, which has no remote
+README.md

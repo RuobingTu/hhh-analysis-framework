@@ -172,7 +172,45 @@
   \end{center}
 \end{frame}}
 
-\lepframe{1tau1l}{1$\tau_h$1l inclusive}{Fake $\tau$ from MUFFIN (measured in 1$\tau_h$0l), fake leptons from the data-driven lepton FR}
+\lepframe{1tau1l}{1$\tau_h$1l inclusive}{Fake $\tau$ from MUFFIN measured \emph{in-channel}; fake leptons from the data-driven lepton FR}
+
+\begin{frame}{The 1$\tau_h$1l fake factor is measured in-channel}
+  \footnotesize
+  \begin{columns}[T]
+    \begin{column}{0.54\textwidth}
+      Measured in the channel's own MR (\texttt{mr60}: jet4DeepFlavB $<0.035$,
+      the balanced 60/40 split of the fake FO pool), so the agreement on the
+      previous slide is \emph{not} closing by construction -- an inclusive
+      in-channel fit would reproduce the tight region trivially.
+      \vspace{0.3em}
+      \begin{itemize}\itemsep2pt
+        \item pool: \texttt{kind\_category\_FR==1} with a tight lepton,
+          SingleMuon $+$ SingleElectron, 27060 data events in the MR
+        \item inclusive $F_F$: 0.3357 (MR) vs 0.3393 (VR), 1.1\% apart
+        \item feature ranking as in 1$\tau_h$0l:
+          $p_T^{\rm jet}/p_T^{\tau}\gg$ decay mode $>\eta$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \centering
+      \begin{tabular}{lcc}
+        \toprule
+        class & out-of-fold MR & MR $\to$ VR \\
+        \midrule
+        nj45 1p & 0.989 & 0.993 \\
+        nj45 3p & 1.032 & 0.977 \\
+        nj6 1p  & 1.041 & 0.937 \\
+        nj6 3p  & 1.083 & 0.972 \\
+        \midrule
+        \textbf{total} & \textbf{1.008} & \textbf{0.975} \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.4em}
+      {\scriptsize Left: every event predicted by a model that never saw it.
+      Right: measured in the MR, applied to the VR -- the actual validation.}
+    \end{column}
+  \end{columns}
+\end{frame}
 
 \channelframe{2tau0l}{2$\tau_h$0l inclusive}{Fake $\tau$ from MUFFIN, measured in 1$\tau_h$0l and applied unchanged}
 

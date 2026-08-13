@@ -20,7 +20,7 @@ cp -f "$SRC/plots_v29pre_1tau0l_muffin_inclusive/closure_inclusive_1tau0l_ProbHH
       "$FIG/1tau0l_spanet.png"
 
 # the 1tau1l MUFFIN run writes into the worktree
-M=$HERE/out/agreement_muffin_1tau1l
+M=$HERE/out/agreement_muffin_1tau1l_inchannel
 if [ -d "$M" ]; then
   for v in $VARS lep1Pt; do
     f="$M/closure_inclusive_1tau1l_${v}_log.png"

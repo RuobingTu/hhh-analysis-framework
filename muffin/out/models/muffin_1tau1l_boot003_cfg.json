@@ -1,0 +1,22 @@
+{
+  "feature_names": [
+    "tau1decayMode",
+    "ptratio",
+    "tau1Pt",
+    "nsmalljets",
+    "nbtags",
+    "tau1Eta",
+    "tau1Phi"
+  ],
+  "b0": -1.0653710286035905,
+  "norm": 1.021307858169121,
+  "inclusive_ff": 0.3445999745977145,
+  "n_train": {
+    "n": 158500,
+    "n_pass": 119656,
+    "n_neg_weight": 122874,
+    "net_pass": 5784.02153765312,
+    "net_fail": 16784.741625141956,
+    "norm": 1.021307858169121
+  }
+}

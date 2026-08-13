@@ -5,3 +5,9 @@ __pycache__/
 out/closure_muffin_*/
 _watch.sh
 .__afs*
+beamer/*.aux
+beamer/*.log
+beamer/*.nav
+beamer/*.out
+beamer/*.snm
+beamer/*.toc

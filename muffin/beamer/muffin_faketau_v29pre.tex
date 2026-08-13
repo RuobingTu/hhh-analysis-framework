@@ -1,0 +1,229 @@
+% MUFFIN fake-tau estimate, v29pre 2017 -- status report
+% build:  pdflatex muffin_faketau_v29pre.tex   (twice, for the frame numbers)
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{default}
+\usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{framesubtitle}{size=\small}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+% keep every included figure inside the text block no matter what
+\setkeys{Gin}{keepaspectratio}
+
+% two rows of plots must fit in one frame: cap BOTH dimensions and let
+% keepaspectratio take the smaller, so nothing can spill over the frame
+\newcommand{\fig}[2]{\includegraphics[width=#1\textwidth,height=0.37\textheight,keepaspectratio]{figs/#2}}
+% single large plot inside a column -- measured against the COLUMN, not the page
+\newcommand{\figH}[2]{\includegraphics[width=#1\columnwidth,height=0.70\textheight,keepaspectratio]{figs/#2}}
+
+\title{MUFFIN for the jet$\,\to\,\tau_h$ background}
+\subtitle{v29pre, 2017 -- status and validation}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ---------------------------------------------------------------- method
+\begin{frame}{What MUFFIN is}
+  \framesubtitle{MUltivariate Fake-Factor INference (Andreou, Colling, Winterbottom; CMS-PAS-TAU-25-001)}
+  \small
+  The binned fake factor is replaced by a continuous, multi-dimensional
+  per-object weight:
+  \[
+    w_{\rm MUFFIN}(z)=\frac{p^{\rm data}_{\rm pass}(z)-p^{\rm sim}_{\rm pass}(z)}
+                           {p^{\rm data}_{\rm fail}(z)-p^{\rm sim}_{\rm fail}(z)}
+  \]
+  \begin{itemize}
+    \item This is \emph{the same quantity} our map delivers as $FR/(1-FR)$: the
+      denominator is inclusive-loose, so $FR/(1-FR)=N_{\rm pass}/N_{\rm fail}$.
+      Only the estimation changes -- continuous in 7 variables instead of
+      $p_T\times|\eta|$ cells per prong.
+    \item Estimated with a single BDT classifier trained on pass vs.\ fail with
+      \textbf{signed} weights ($+1$ data, $-w_{\rm ana}$ genuine-$\tau$ simulation).
+      The stationary point of that weighted log-loss is $s=A/(A{+}B)$ over the
+      \emph{net} densities, so $w_{\rm MUFFIN}=s/(1-s)=e^{\rm margin}$ exactly.
+    \item Inputs are the poster's list verbatim: $\tau_h$ decay mode,
+      $p_T^{\rm jet}/p_T^{\tau}$, $p_T^{\tau}$, $N_{\rm jets}$, $N_{b}$,
+      $\eta$, $\phi$. No mother-jet flavour axes (dropped from our FR method).
+    \item Applied per event exactly like \texttt{tauFR\_weight\_2d}: a
+      dependency-free C++ header, validated against the python model to $3\times10^{-6}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Uncertainty model}
+  \small
+  Five components, following the poster; 30 trainings in total
+  (1 nominal $+$ 20 bootstrap $+$ 7 hyper-parameter $+$ 2 background-subtraction):
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    component & how & value (1$\tau_h$0l VR) \\
+    \midrule
+    statistical & 20 Poisson-bootstrap retrainings & 2.4\% \\
+    modelling   & 7 hyper-parameter variations & 1.2\% \\
+    bkg.\ subtraction & $\pm10\%$ on the subtracted genuine-$\tau$ MC & 1.8\% \\
+    non-closure $+$ extrapolation & VR closure residual & 2.5\% \\
+    \midrule
+    \textbf{total} & quadrature & \textbf{4.0\%} \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.4em}
+  Per bin of $p_T^{\tau}$, $H_T$ and $p_T^{\rm jet 1}$ the MUFFIN band is a flat
+  \textbf{11.4\%}, while the binned map grows from 13.7\% to \textbf{16.5\%}
+  into the tails, where its cells run out of events.
+\end{frame}
+
+% ---------------------------------------------------------------- ttbar transfer
+\begin{frame}{Validation I: does the fake factor travel between channels?}
+  \framesubtitle{$t\bar t$ MC truth, fake $\tau_h$ only -- no data-driven subtraction needed}
+  \small
+  Measure the fake factor on $t\bar t$ MC in 1$\tau_h$1l, predict 1$\tau_h$0l.
+  724k / 270k fake $\tau_h$, so the transfer is tested well below a percent.
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{lcccccc}
+    \toprule
+    & integral & $p_T^{\tau}$ & $p_T^{\rm jet}$ & $|\eta|$ & $N_{\rm jets}$ & $p_T^{\rm miss}$ \\
+    \midrule
+    \multicolumn{7}{l}{\textit{transfer} 1$\tau_h$1l $\to$ 1$\tau_h$0l} \\
+    MUFFIN            & \textbf{1.018} & \textbf{1.8\%} & 3.3\% & \textbf{2.6\%} & \textbf{1.9\%} & \textbf{3.5\%} \\
+    binned map        & 1.031 & 14.8\% & 3.0\% & 3.4\% & 4.1\% & 5.0\% \\
+    inclusive-only    & 1.046 & 8.8\%  & 16.9\% & 4.9\% & 4.6\% & 6.4\% \\
+    \midrule
+    \multicolumn{7}{l}{\textit{reference} 1$\tau_h$0l $\to$ 1$\tau_h$0l, out-of-fold} \\
+    MUFFIN            & 1.000 & 0.5\% & 4.1\% & 5.2\% & 0.6\% & 2.4\% \\
+    binned map        & 1.000 & 16.2\% & 0.5\% & 1.7\% & 3.2\% & 2.6\% \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{0.3em}
+  The $t\bar t$ fake factor transfers well: the inclusive value differs by 4.5\%
+  between channels, and a differential fake factor absorbs most of it --
+  \textbf{1.8\% residual for MUFFIN}, 3.1\% for the binned map, 4.6\% for a constant.
+  MUFFIN transfers \emph{better}, because the channels differ largely in
+  $N_{\rm jets}$/$p_T$ and it is differential in those.
+\end{frame}
+
+% ---------------------------------------------------------------- SPANet score
+\begin{frame}{Validation II: overall closure is the same, the score region is better}
+  \framesubtitle{1$\tau_h$0l inclusive -- black points MUFFIN, red line the binned $F_F$}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{center}\figH{1.0}{1tau0l_spanet.png}\end{center}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \small
+      \begin{itemize}
+        \item Same events, same MC-prompt stack, same anti-ID selection and
+          subtraction -- only the fake factor differs, so the gap between the
+          two curves \emph{is} the difference between the methods.
+        \item Integrated yields agree to \textbf{0.02\%} (1$\tau_h$0l VR) and
+          \textbf{0.08\%} (inclusive): MUFFIN does not change the normalisation.
+        \item It changes the \textbf{shape}. In the high-score region the binned
+          $F_F$ drifts up to $\sim$1.4, while MUFFIN stays within the band.
+        \item Over every SPANet ProbHHH4b2tau training the closure improves by
+          \textbf{1.4--2.7\%}; $p_T^{\tau}$ improves from 11.9\% to \textbf{3.8\%}.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------- inclusive plots
+\newcommand{\channelframe}[3]{%
+\begin{frame}{#2}
+  \framesubtitle{#3}
+  \begin{center}
+    \fig{0.325}{#1_nsmalljets.png}\hfill
+    \fig{0.325}{#1_nfatjets.png}\hfill
+    \fig{0.325}{#1_ht.png}
+  \end{center}
+  \vspace{0.2em}
+  \begin{center}
+    \fig{0.325}{#1_tau1Pt.png}\hfill
+    \fig{0.325}{#1_jet1Pt.png}
+  \end{center}
+\end{frame}}
+
+\channelframe{1tau0l}{1$\tau_h$0l inclusive}{Fake $\tau$ from MUFFIN; ratio pad: points MUFFIN, red line binned $F_F$}
+
+% 1tau1l carries the lepton as well -> 3 + 3
+\newcommand{\lepframe}[3]{%
+\begin{frame}{#2}
+  \framesubtitle{#3}
+  \begin{center}
+    \fig{0.325}{#1_nsmalljets.png}\hfill
+    \fig{0.325}{#1_nfatjets.png}\hfill
+    \fig{0.325}{#1_ht.png}
+  \end{center}
+  \vspace{0.2em}
+  \begin{center}
+    \fig{0.325}{#1_tau1Pt.png}\hfill
+    \fig{0.325}{#1_jet1Pt.png}\hfill
+    \fig{0.325}{#1_lep1Pt.png}
+  \end{center}
+\end{frame}}
+
+\lepframe{1tau1l}{1$\tau_h$1l inclusive}{Fake $\tau$ from MUFFIN (measured in 1$\tau_h$0l), fake leptons from the data-driven lepton FR}
+
+\channelframe{2tau0l}{2$\tau_h$0l inclusive}{Fake $\tau$ from MUFFIN, measured in 1$\tau_h$0l and applied unchanged}
+
+\channelframe{2tau0lsb}{2$\tau_h$0l single-tight sideband}{526 events instead of 111 -- the higher-statistics test of the same fake factor}
+
+\lepframe{1tau1lfl}{1$\tau_h$1l with the fake-lepton method only}{No data-driven fake-$\tau$ template: the $\tau$ background comes from MC truth}
+
+\begin{frame}{What the fake-lepton-only configuration shows}
+  \small
+  \begin{itemize}
+    \item Turning the data-driven fake-$\tau$ template off and keeping only the
+      fake-lepton estimate, the prediction still describes the data across
+      $N_{\rm jets}$, $N_{\rm fatjets}$, $H_T$, $p_T^{\tau}$, $p_T^{\rm jet1}$
+      and $p_T^{\ell}$.
+    \item So in this channel the \textbf{fake-lepton contribution is small}, and
+      the \textbf{pure-MC description is already good} -- the data-driven
+      fake-$\tau$ template is a refinement on top of a sound baseline, not a
+      patch covering a mismodelling.
+    \item This is also why the fake-lepton systematic does not drive the
+      1$\tau_h$1l uncertainty.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+  \small
+  \begin{itemize}
+    \item MUFFIN reproduces the binned $F_F$ in normalisation
+      (\textbf{0.02--0.08\%} on the total yield) and improves the \textbf{shape},
+      most visibly in $p_T^{\tau}$ (11.9\% $\to$ 3.8\%) and in every SPANet
+      ProbHHH4b2tau training (\textbf{1.4--2.7\%}).
+    \item Its systematic is \textbf{smaller}: a flat 11.4\% per bin against
+      13.7--16.5\% for the map, which degrades into the tails.
+    \item The cross-channel transfer is validated on $t\bar t$ MC:
+      \textbf{1.8\%} residual for MUFFIN, 3.1\% for the binned map.
+    \item 2$\tau_h$0l: the (tight,tight) region holds 111 events. The same fake
+      factor closes in the 526-event single-tight sideband at
+      \textbf{0.998 $\pm$ 0.056}, so the method is validated in that channel too.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Next steps}
+  \small
+  \begin{itemize}
+    \item We are applying the full analysis chain to the \textbf{other years},
+      to produce the final complete limit for this version.
+    \item Each year needs its \textbf{own trigger scale factors} and its
+      \textbf{own fake factor}, measured separately -- that is the bulk of the
+      remaining work.
+    \item If nothing unexpected comes up, we expect to finish within
+      \textbf{one week}.
+  \end{itemize}
+\end{frame}
+
+\end{document}
